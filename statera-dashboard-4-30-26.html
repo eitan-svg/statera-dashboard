@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1920"/>
+<title>Statera Operations Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #09090b; }
+  #scaler {
+    width: 1920px; height: 1080px;
+    transform-origin: top left;
+    position: absolute; top: 0; left: 0;
+    background: linear-gradient(135deg, #09090b 0%, #0f1117 60%, #0a0c10 100%);
+    color: #e2e8f0;
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px 30px 14px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 14px; flex-shrink: 0;
+  }
+  .header-left { display: flex; align-items: center; gap: 24px; flex: 1; }
+  .logo-name { font-size: 36px; font-weight: 700; letter-spacing: 8px; color: #f8fafc; white-space: nowrap; }
+  .logo-sub { font-size: 12px; letter-spacing: 4px; color: #475569; text-transform: uppercase; font-weight: 500; margin-top: 3px; }
+  .divider { width: 1px; height: 52px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+
+  /* VALUES BLOCK — centered, stacked */
+  .values-block { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; flex: 1; }
+  .values-top { display: flex; align-items: center; gap: 20px; }
+  .rotating-value { font-size: 24px; font-weight: 700; color: #f8fafc; transition: opacity 0.4s; white-space: nowrap; }
+  .values-quote { font-size: 20px; font-weight: 600; color: #f1f5f9; white-space: nowrap; font-style: italic; }
+  .values-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+  .live-badge {
+    font-size: 12px; letter-spacing: 2px; color: #22c55e; text-transform: uppercase;
+    border: 1px solid rgba(34,197,94,0.35); border-radius: 5px; padding: 5px 14px;
+    font-weight: 600; background: rgba(34,197,94,0.08);
+    display: flex; align-items: center; gap: 7px; flex-shrink: 0;
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; display: inline-block; }
+  .clock-block { text-align: right; flex-shrink: 0; }
+  .clock-time { font-size: 40px; font-weight: 700; letter-spacing: 2px; font-family: 'DM Mono', monospace; color: #f1f5f9; }
+  .clock-colon { transition: opacity 0.3s; }
+  .clock-sec { font-size: 22px; opacity: 0.35; margin-left: 3px; }
+  .clock-date { font-size: 12px; color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; flex-shrink: 0; }
+  .stat-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 16px 22px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .stat-big { font-size: 58px; font-weight: 700; font-family: 'DM Mono', monospace; line-height: 1; }
+  .stat-title { font-size: 17px; font-weight: 600; color: #f1f5f9; }
+  .stat-sub { font-size: 12px; color: #475569; margin-top: 3px; }
+  .stat-year { font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; margin-top: 3px; }
+  .stars { display: flex; align-items: center; gap: 3px; margin-top: 6px; }
+  .star-rating { font-size: 13px; margin-left: 4px; font-family: 'DM Mono', monospace; font-weight: 700; color: #f59e0b; }
+
+  /* BODY */
+  .body { display: grid; grid-template-columns: 1fr 460px; gap: 14px; flex: 1; min-height: 0; }
+  .left-col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 20px 24px; display: flex; flex-direction: column;
+  }
+  .section-label {
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 700; color: #94a3b8; margin-bottom: 18px; flex-shrink: 0;
+  }
+
+  /* PROJECTS */
+  table { width: 100%; border-collapse: collapse; }
+  thead th { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #475569; font-weight: 600; padding-bottom: 12px; text-align: left; }
+  thead th.c { text-align: center; }
+  tbody tr { border-top: 1px solid rgba(255,255,255,0.06); }
+  tbody td { padding: 11px 0; }
+  tbody td.c { text-align: center; }
+  .proj-name { display: flex; align-items: center; font-weight: 700; font-size: 16px; color: #f1f5f9; }
+  .sdot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 12px; flex-shrink: 0; }
+  .td-pm { color: #94a3b8; font-size: 14px; }
+  .td-phase { color: #64748b; font-size: 13px; }
+  .td-date { color: #64748b; font-family: 'DM Mono', monospace; font-size: 14px; }
+  .vbadge { padding: 3px 10px; border-radius: 5px; font-size: 14px; font-weight: 700; font-family: 'DM Mono', monospace; }
+
+  /* BOTTOM LEFT */
+  .bottom-left { display: grid; grid-template-columns: 340px 1fr; gap: 14px; flex: 1; min-height: 0; }
+
+  /* DONUT */
+  .donut-card { justify-content: flex-start; }
+  .donut-body { display: flex; align-items: center; gap: 24px; margin-top: 6px; }
+  .legend-item { display: flex; align-items: center; justify-content: space-between; font-size: 18px; margin-bottom: 16px; white-space: nowrap; }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-left { display: flex; align-items: center; gap: 10px; }
+  .legend-dot { width: 13px; height: 13px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .legend-label { color: #94a3b8; font-size: 18px; }
+  .legend-val { font-family: 'DM Mono', monospace; font-weight: 700; font-size: 24px; margin-left: 16px; }
+
+  /* THIS MONTH */
+  .priority-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border-radius: 9px; margin-bottom: 10px;
+    font-size: 15px; color: #cbd5e1; line-height: 1.4;
+    background: rgba(255,255,255,0.03);
+  }
+  .priority-item:last-child { margin-bottom: 0; }
+  .priority-arrow { font-size: 20px; flex-shrink: 0; color: #a78bfa; }
+
+  /* RIGHT */
+  .right-col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .red-card { border-color: rgba(239,68,68,0.3) !important; background: rgba(239,68,68,0.06) !important; flex: 1; }
+  .flag-item { padding-top: 15px; margin-top: 15px; border-top: 1px solid rgba(239,68,68,0.12); }
+  .flag-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
+  .flag-row { display: flex; justify-content: space-between; align-items: center; }
+  .flag-project { font-size: 17px; font-weight: 700; color: #fca5a5; }
+  .flag-due { font-size: 13px; color: #ef4444; font-family: 'DM Mono', monospace; font-weight: 700; }
+  .flag-issue { font-size: 14px; color: #94a3b8; margin-top: 4px; }
+  .flag-owner { font-size: 12px; color: #64748b; margin-top: 3px; }
+  .yellow-card { border-color: rgba(245,158,11,0.3) !important; background: rgba(245,158,11,0.05) !important; flex: 0 0 auto; }
+  .watch-item { padding-top: 13px; margin-top: 13px; border-top: 1px solid rgba(245,158,11,0.12); }
+  .watch-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
+  .watch-project { font-size: 16px; font-weight: 700; color: #fde68a; }
+  .watch-note { font-size: 14px; color: #94a3b8; margin-top: 4px; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 7px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-size: 11px; color: #2d3748; letter-spacing: 1px; }
+  .footer-right { font-size: 11px; color: #2d3748; font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+<div id="scaler">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div>
+        <div class="logo-name">STATERA</div>
+        <div class="logo-sub">Design &amp; Build</div>
+      </div>
+      <div class="divider"></div>
+      <div class="values-block">
+        <div class="values-top">
+          <div class="rotating-value" id="rotating-value">Details Matter.</div>
+          <div class="values-divider"></div>
+          <div class="values-quote">"Because quality is a mindset, not a line item."</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="live-badge"><span class="live-dot"></span>Live</div>
+    </div>
+    <div class="clock-block">
+      <div class="clock-time"><span id="ch"></span><span class="clock-colon" id="cc">:</span><span id="cm"></span><span class="clock-sec" id="cs"></span></div>
+      <div class="clock-date" id="cd"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-big" style="color:#22c55e">68</div>
+      <div>
+        <div class="stat-title">Projects Delivered</div>
+        <div class="stat-year" style="color:#22c55e">13 this year</div>
+        <div class="stat-sub">all time</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big" style="color:#60a5fa">6</div>
+      <div>
+        <div class="stat-title">Active Job Sites</div>
+        <div class="stat-sub">across San Diego</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big" style="color:#f59e0b">3</div>
+      <div>
+        <div class="stat-title">5-Star Reviews</div>
+        <div class="stars">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-rating">5.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big" style="color:#a78bfa">2</div>
+      <div>
+        <div class="stat-title">Proposals Out</div>
+        <div class="stat-sub">active pipeline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="left-col">
+
+      <!-- PROJECTS -->
+      <div class="card" style="flex:0 0 auto">
+        <div class="section-label">Active Projects</div>
+        <table>
+          <thead><tr>
+            <th>Project</th><th>PM</th><th>Phase</th>
+            <th class="c">Start</th><th class="c">Target</th><th class="c">Variance</th>
+          </tr></thead>
+          <tbody id="projects-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- DONUT + THIS MONTH -->
+      <div class="bottom-left">
+        <div class="card donut-card">
+          <div class="section-label">Job Status</div>
+          <div class="donut-body">
+            <svg id="donut-svg" width="150" height="150" style="flex-shrink:0"></svg>
+            <div id="donut-legend" style="flex:1;min-width:0"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-label" style="color:#a78bfa">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:10px;vertical-align:middle"></span>
+            This Month
+          </div>
+          <div id="monthly-priorities"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-col">
+      <div class="card red-card">
+        <div class="section-label" style="color:#ef4444">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:10px;box-shadow:0 0 8px #ef4444;vertical-align:middle"></span>
+          Red Flag Zone
+        </div>
+        <div id="red-flags"></div>
+      </div>
+      <div class="card yellow-card">
+        <div class="section-label" style="color:#f59e0b">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:10px;vertical-align:middle"></span>
+          Yellow Watchlist
+        </div>
+        <div id="watchlist"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">STATERA DESIGN &amp; BUILD · CSLB #1140174 · staterasd.com</div>
+    <div class="footer-right">EDIT FROM LAPTOP · DO NOT TOUCH TV</div>
+  </div>
+
+</div>
+<script>
+function scaleToFit(){
+  const s=document.getElementById('scaler');
+  const scale=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  s.style.transform=`scale(${scale})`;
+  s.style.left=((window.innerWidth-1920*scale)/2)+'px';
+  s.style.top=((window.innerHeight-1080*scale)/2)+'px';
+}
+window.addEventListener('resize',scaleToFit); scaleToFit();
+
+// ── DATA ─────────────────────────────────────────────────────
+const PROJECTS=[
+  {name:"920 Coronado Ave",       pm:"Ed",            start:"04/01", close:"05/31", variance:+5,  status:"active",  phase:"Drywall / Flooring 5/11"},
+  {name:"1506 5th St Coronado",   pm:"Diego + Ed",    start:"04/10", close:"09/30", variance:+2,  status:"active",  phase:"Demo / ADU Exterior"},
+  {name:"2130 Via Mar Valle",     pm:"Eitan",         start:"04/05", close:"06/20", variance:-7,  status:"active",  phase:"Bath + Patio Pending"},
+  {name:"Udall St",               pm:"Diego + Larry", start:"03/15", close:"05/30", variance:-18, status:"blocked", phase:"Inspections Pending"},
+  {name:"Ruette de Mer",          pm:"Eitan",         start:"02/01", close:"05/15", variance:-3,  status:"closing", phase:"Closeout / Punch"},
+  {name:"Ruette Montecarlo",      pm:"Eitan + Tomas", start:"03/10", close:"06/10", variance:+1,  status:"active",  phase:"Active"},
+  {name:"2790 Silver Oak Ct",     pm:"TBD",           start:"—",     close:"—",     variance:null,status:"pre-con", phase:"Waiting for Contract"},
+];
+
+const RED_FLAGS=[
+  {project:"920 Coronado",   issue:"Install flooring — scheduled May 11",     owner:"Ed",    due:"05/11"},
+  {project:"Udall St",       issue:"SDG&E utility conflict unresolved",        owner:"Diego", due:"ASAP"},
+  {project:"Silver Oak Ct",  issue:"Contract not yet signed",                  owner:"Eitan", due:"This week"},
+  {project:"Via Mar Valle",  issue:"Patio permit approval pending",            owner:"Eitan", due:"05/05"},
+];
+
+const WATCHLIST=[
+  {project:"920 Coronado",  note:"Start mudding — target 5/1/26"},
+  {project:"1506 5th St",   note:"Framing pace — monitor milestone"},
+  {project:"Ruette de Mer", note:"Closeout punchlist not started"},
+];
+
+const MONTHLY=[
+  "920 Coronado — Start mudding 5/1/26",
+  "920 Coronado — Install flooring 5/11/26",
+  "920 Coronado — Drywall complete by end of May",
+  "Close Ruette de Mer — final punchlist",
+  "Sign Silver Oak contract",
+  "Resolve Udall SDG&E conflict",
+];
+
+const VALUES=["Details Matter.","People Matter.","Results Matter."];
+const SC={active:"#22c55e",blocked:"#ef4444",closing:"#f59e0b","pre-con":"#60a5fa"};
+
+// ── CLOCK ────────────────────────────────────────────────────
+function tick(){
+  const n=new Date();
+  const D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  document.getElementById('ch').textContent=String(n.getHours()).padStart(2,'0');
+  document.getElementById('cm').textContent=String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('cs').textContent=String(n.getSeconds()).padStart(2,'0');
+  document.getElementById('cc').style.opacity=n.getSeconds()%2===0?'1':'0.3';
+  document.getElementById('cd').textContent=`${D[n.getDay()]} · ${M[n.getMonth()]} ${n.getDate()}, ${n.getFullYear()}`;
+}
+setInterval(tick,1000); tick();
+
+// ── ROTATING VALUES ──────────────────────────────────────────
+let vi=0;
+setInterval(()=>{
+  const el=document.getElementById('rotating-value');
+  el.style.opacity='0';
+  setTimeout(()=>{vi=(vi+1)%VALUES.length;el.textContent=VALUES[vi];el.style.opacity='1';},400);
+},2800);
+
+// ── PROJECTS TABLE ───────────────────────────────────────────
+document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
+  const c=SC[p.status]||'#94a3b8';
+  let v='<span style="color:#475569">—</span>';
+  if(p.variance!==null){
+    const vc=p.variance>=0?'#22c55e':'#ef4444';
+    const vb=p.variance>=0?'rgba(34,197,94,0.12)':'rgba(239,68,68,0.12)';
+    v=`<span class="vbadge" style="color:${vc};background:${vb}">${p.variance>=0?'+':''}${p.variance}d</span>`;
+  }
+  return `<tr>
+    <td><div class="proj-name"><span class="sdot" style="background:${c};box-shadow:0 0 7px ${c}90"></span>${p.name}</div></td>
+    <td class="td-pm">${p.pm}</td><td class="td-phase">${p.phase}</td>
+    <td class="td-date c">${p.start}</td><td class="td-date c">${p.close}</td>
+    <td class="c">${v}</td>
+  </tr>`;
+}).join('');
+
+// ── DONUT ────────────────────────────────────────────────────
+const counts={active:0,blocked:0,closing:0,"pre-con":0};
+PROJECTS.forEach(p=>{if(counts[p.status]!==undefined)counts[p.status]++;});
+const dd=[
+  {label:"Active",  value:counts.active,       color:"#22c55e"},
+  {label:"Closing", value:counts.closing,      color:"#f59e0b"},
+  {label:"Blocked", value:counts.blocked,      color:"#ef4444"},
+  {label:"Pre-Con", value:counts["pre-con"],   color:"#60a5fa"},
+].filter(d=>d.value>0);
+const tot=dd.reduce((s,d)=>s+d.value,0);
+const cx=75,cy=75,r=56,sw=18;
+let cum=-Math.PI/2,paths='';
+dd.forEach(d=>{
+  const a=(d.value/tot)*2*Math.PI;
+  const x1=cx+r*Math.cos(cum),y1=cy+r*Math.sin(cum);
+  cum+=a;
+  const x2=cx+r*Math.cos(cum),y2=cy+r*Math.sin(cum);
+  paths+=`<path d="M ${x1} ${y1} A ${r} ${r} 0 ${a>Math.PI?1:0} 1 ${x2} ${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="butt" opacity="0.92"/>`;
+});
+paths+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" fill="#f1f5f9" font-size="28" font-weight="700" font-family="'DM Mono',monospace">${tot}</text>`;
+paths+=`<text x="${cx}" y="${cy+18}" text-anchor="middle" fill="#475569" font-size="12" font-family="'DM Sans',sans-serif" letter-spacing="1">JOBS</text>`;
+document.getElementById('donut-svg').innerHTML=paths;
+document.getElementById('donut-legend').innerHTML=dd.map(d=>
+  `<div class="legend-item">
+    <div class="legend-left"><span class="legend-dot" style="background:${d.color}"></span><span class="legend-label">${d.label}</span></div>
+    <span class="legend-val" style="color:${d.color}">${d.value}</span>
+  </div>`
+).join('');
+
+// ── RED FLAGS ────────────────────────────────────────────────
+document.getElementById('red-flags').innerHTML=RED_FLAGS.map((f,i)=>
+  `<div class="flag-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>
+    <div class="flag-row"><span class="flag-project">${f.project}</span><span class="flag-due">${f.due}</span></div>
+    <div class="flag-issue">${f.issue}</div><div class="flag-owner">Owner: ${f.owner}</div>
+  </div>`
+).join('');
+
+// ── WATCHLIST ────────────────────────────────────────────────
+document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
+  `<div class="watch-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>
+    <div class="watch-project">${w.project}</div><div class="watch-note">${w.note}</div>
+  </div>`
+).join('');
+
+// ── THIS MONTH ───────────────────────────────────────────────
+document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
+  `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5)">
+    <span class="priority-arrow">›</span>${item}
+  </div>`
+).join('');
+</script>
+</body>
+</html>
