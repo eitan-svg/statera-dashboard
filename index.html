@@ -274,6 +274,16 @@ function scaleToFit(){
 }
 window.addEventListener('resize',scaleToFit); scaleToFit();
 
+// Keep screen awake — simulate activity every 30 seconds
+setInterval(()=>{
+  const el=document.getElementById('scaler');
+  el.style.opacity='0.9999';
+  setTimeout(()=>{ el.style.opacity='1'; },100);
+},30000);
+
+// Auto-refresh every 5 minutes to pull latest content
+setTimeout(()=>{ location.reload(); },5*60*1000);
+
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
   {name:"920 Coronado Ave",       pm:"Ed",            start:"04/01", close:"05/31", variance:+5,  status:"active",  phase:"Drywall / Flooring 5/11"},
