@@ -281,6 +281,29 @@ setInterval(()=>{
   setTimeout(()=>{ el.style.opacity='1'; },100);
 },30000);
 
+// Silent background refresh every 5 minutes
+// Fetches the page in background and updates only changed data
+setInterval(()=>{
+  fetch(window.location.href + '?nocache=' + Date.now())
+    .then(r => r.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const newDoc = parser.parseFromString(html, 'text/html');
+      const newScript = newDoc.querySelector('script:last-of-type');
+      if(newScript){
+        // Extract and re-run just the data sections
+        const scriptText = newScript.textContent;
+        // Check if content actually changed
+        const currentScript = document.querySelector('script:last-of-type').textContent;
+        if(scriptText !== currentScript){
+          // Re-render all sections silently
+          try { eval(scriptText); } catch(e){}
+        }
+      }
+    })
+    .catch(()=>{});
+}, 5 * 60 * 1000);
+
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
   {name:"920 Coronado Ave",       pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Mud started · Flooring 5/11"},
