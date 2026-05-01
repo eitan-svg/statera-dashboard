@@ -212,7 +212,7 @@
         <table>
           <thead><tr>
             <th>Project</th><th>PM</th><th>Phase</th>
-            <th class="c">Start</th><th class="c">Target</th><th class="c">Variance</th>
+            <th class="c">Start</th><th class="c">Target</th><th class="c">Days Left</th>
           </tr></thead>
           <tbody id="projects-tbody"></tbody>
         </table>
@@ -283,35 +283,36 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",       pm:"Ed",            start:"04/01", close:"05/31", variance:+5,  status:"active",  phase:"Drywall / Flooring 5/11"},
-  {name:"1506 5th St Coronado",   pm:"Diego + Ed",    start:"04/10", close:"09/30", variance:+2,  status:"active",  phase:"Demo / ADU Exterior"},
-  {name:"2130 Via Mar Valle",     pm:"Eitan",         start:"04/05", close:"06/20", variance:-7,  status:"active",  phase:"Bath + Patio Pending"},
-  {name:"Udall St",               pm:"Diego + Larry", start:"03/15", close:"05/30", variance:-18, status:"blocked", phase:"Inspections Pending"},
-  {name:"Ruette de Mer",          pm:"Eitan",         start:"02/01", close:"05/15", variance:-3,  status:"closing", phase:"Closeout / Punch"},
-  {name:"Ruette Montecarlo",      pm:"Eitan + Tomas", start:"03/10", close:"06/10", variance:+1,  status:"active",  phase:"Active"},
-  {name:"2790 Silver Oak Ct",     pm:"TBD",           start:"—",     close:"—",     variance:null,status:"pre-con", phase:"Waiting for Contract"},
+  {name:"920 Coronado Ave",       pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Mud started · Flooring 5/11"},
+  {name:"1506 5th St Coronado",   pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Demo started 5/1"},
+  {name:"2130 Via Mar Valle",     pm:"Eitan",         start:"04/05", close:"06/20", closeDate:"2026-06-20", status:"active",  phase:"Bath + Patio Pending"},
+  {name:"Udall St",               pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Soffits · SDG&E sketch pending"},
+  {name:"Ruette de Mer",          pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Closeout / Punch"},
+  {name:"Ruette Montecarlo",      pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Active"},
+  {name:"2790 Silver Oak Ct",     pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado",   issue:"Install flooring — scheduled May 11",     owner:"Ed",    due:"05/11"},
-  {project:"Udall St",       issue:"SDG&E utility conflict unresolved",        owner:"Diego", due:"ASAP"},
-  {project:"Silver Oak Ct",  issue:"Contract not yet signed",                  owner:"Eitan", due:"This week"},
-  {project:"Via Mar Valle",  issue:"Patio permit approval pending",            owner:"Eitan", due:"05/05"},
+  {project:"920 Coronado",   issue:"Install flooring — scheduled May 11",            owner:"Ed + Diego", due:"05/11"},
+  {project:"Udall St",       issue:"SDG&E sketch not received · Scaffold $2,300 pending", owner:"Diego", due:"ASAP"},
+  {project:"Silver Oak Ct",  issue:"Contract not yet signed",                        owner:"Eitan", due:"This week"},
+  {project:"Via Mar Valle",  issue:"Patio permit approval pending",                  owner:"Eitan", due:"05/05"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",  note:"Start mudding — target 5/1/26"},
-  {project:"1506 5th St",   note:"Framing pace — monitor milestone"},
-  {project:"Ruette de Mer", note:"Closeout punchlist not started"},
+  {project:"920 Coronado",  note:"Window game room — molding option to review"},
+  {project:"920 Coronado",  note:"Siding facade — pending update from contractor"},
+  {project:"Udall St",      note:"Tommy entering Friday — soffits must finish first"},
+  {project:"1506 5th St",   note:"Excel numbers + binder not yet complete"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Start mudding 5/1/26",
-  "920 Coronado — Install flooring 5/11/26",
-  "920 Coronado — Drywall complete by end of May",
+  "920 Coronado — Flooring install 5/11",
+  "920 Coronado — Toral walkthrough next week",
+  "920 Coronado — Cabinet review with Andrés (TV unit pending)",
+  "Udall — Tommy inspection Monday 5/4",
+  "5th Coronado — Demo complete target",
   "Close Ruette de Mer — final punchlist",
-  "Sign Silver Oak contract",
-  "Resolve Udall SDG&E conflict",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
@@ -342,10 +343,25 @@ setInterval(()=>{
 document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   const c=SC[p.status]||'#94a3b8';
   let v='<span style="color:#475569">—</span>';
-  if(p.variance!==null){
-    const vc=p.variance>=0?'#22c55e':'#ef4444';
-    const vb=p.variance>=0?'rgba(34,197,94,0.12)':'rgba(239,68,68,0.12)';
-    v=`<span class="vbadge" style="color:${vc};background:${vb}">${p.variance>=0?'+':''}${p.variance}d</span>`;
+  if(p.closeDate){
+    const days = Math.round((new Date(p.closeDate) - new Date()) / (1000*60*60*24));
+    let label, vc, vb;
+    if(days < 0){
+      label = `${Math.abs(days)}d late`;
+      vc = '#ef4444'; vb = 'rgba(239,68,68,0.12)';
+    } else if(days <= 30){
+      label = `${days}d left`;
+      vc = '#22c55e'; vb = 'rgba(34,197,94,0.12)';
+    } else if(days <= 90){
+      const weeks = Math.round(days/7);
+      label = `${weeks} wks`;
+      vc = '#f59e0b'; vb = 'rgba(245,158,11,0.12)';
+    } else {
+      const months = Math.round(days/30);
+      label = `${months} mo`;
+      vc = '#64748b'; vb = 'rgba(100,116,139,0.12)';
+    }
+    v=`<span class="vbadge" style="color:${vc};background:${vb}">${label}</span>`;
   }
   return `<tr>
     <td><div class="proj-name"><span class="sdot" style="background:${c};box-shadow:0 0 7px ${c}90"></span>${p.name}</div></td>
