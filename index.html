@@ -15,8 +15,8 @@
     background: linear-gradient(135deg, #09090b 0%, #0f1117 60%, #0a0c10 100%);
     color: #e2e8f0;
     font-family: 'DM Sans', sans-serif;
-    padding: 20px 30px 14px;
-    display: flex; flex-direction: column; gap: 14px;
+    padding: 16px 30px 10px;
+    display: flex; flex-direction: column; gap: 10px;
   }
 
   /* HEADER */
@@ -51,10 +51,10 @@
   .clock-date { font-size: 12px; color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
 
   /* STATS */
-  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; flex-shrink: 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; flex-shrink: 0; }
   .stat-card {
     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px; padding: 16px 22px;
+    border-radius: 14px; padding: 12px 22px;
     display: flex; align-items: center; gap: 20px;
   }
   .stat-big { font-size: 58px; font-weight: 700; font-family: 'DM Mono', monospace; line-height: 1; }
@@ -65,8 +65,8 @@
   .star-rating { font-size: 13px; margin-left: 4px; font-family: 'DM Mono', monospace; font-weight: 700; color: #f59e0b; }
 
   /* BODY */
-  .body { display: grid; grid-template-columns: 1fr 460px; gap: 14px; flex: 1; min-height: 0; }
-  .left-col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .body { display: grid; grid-template-columns: 1fr 460px; gap: 10px; flex: 1; min-height: 0; }
+  .left-col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
   .card {
     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
     border-radius: 14px; padding: 20px 24px; display: flex; flex-direction: column;
@@ -91,7 +91,7 @@
   .vbadge { padding: 3px 10px; border-radius: 5px; font-size: 14px; font-weight: 700; font-family: 'DM Mono', monospace; }
 
   /* BOTTOM LEFT */
-  .bottom-left { display: grid; grid-template-columns: 340px 1fr; gap: 14px; flex: 1; min-height: 0; }
+  .bottom-left { display: grid; grid-template-columns: 340px 1fr; gap: 10px; flex: 1; min-height: 0; }
 
   /* DONUT */
   .donut-card { justify-content: flex-start; }
@@ -114,7 +114,7 @@
   .priority-arrow { font-size: 20px; flex-shrink: 0; color: #a78bfa; }
 
   /* RIGHT */
-  .right-col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .right-col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
   .red-card { border-color: rgba(239,68,68,0.3) !important; background: rgba(239,68,68,0.06) !important; flex: 1; }
   .flag-item { padding-top: 15px; margin-top: 15px; border-top: 1px solid rgba(239,68,68,0.12); }
   .flag-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
@@ -306,35 +306,39 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",       pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Mud started · Flooring 5/11"},
-  {name:"1506 5th St Coronado",   pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Demo started 5/1"},
-  {name:"2130 Via Mar Valle",     pm:"Eitan",         start:"04/05", close:"06/20", closeDate:"2026-06-20", status:"active",  phase:"Bath + Patio Pending"},
-  {name:"Udall St",               pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Soffits · SDG&E sketch pending"},
+  {name:"920 Coronado Ave",       pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Hot Mop ✓ · Mud in progress"},
+  {name:"1506 5th St Coronado",   pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Demo started — no update today"},
+  {name:"2130 Via Mar Valle",     pm:"Eitan + Tomas", start:"04/05", close:"06/20", closeDate:"2026-06-20", status:"active",  phase:"Wainscoting 5/5 · STOP work Wed 5/6"},
+  {name:"Udall St",               pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Tommy on soffits · Windows TBD"},
   {name:"Ruette de Mer",          pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Closeout / Punch"},
-  {name:"Ruette Montecarlo",      pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Active"},
+  {name:"Ruette Montecarlo",      pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Payment approval pending"},
   {name:"2790 Silver Oak Ct",     pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado",   issue:"Install flooring — scheduled May 11",            owner:"Ed + Diego", due:"05/11"},
-  {project:"Udall St",       issue:"SDG&E sketch not received · Scaffold $2,300 pending", owner:"Diego", due:"ASAP"},
-  {project:"Silver Oak Ct",  issue:"Contract not yet signed",                        owner:"Eitan", due:"This week"},
-  {project:"Via Mar Valle",  issue:"Patio permit approval pending",                  owner:"Eitan", due:"05/05"},
+  {project:"Udall St",       issue:"Scaffold $2,300 — need install date confirmed to close",      owner:"Eitan", due:"This week"},
+  {project:"Udall St",       issue:"Window installation — no date set, need to schedule",         owner:"Diego", due:"This week"},
+  {project:"Udall St",       issue:"Carl contract unsigned — actively working without contract",   owner:"Eitan", due:"This week"},
+  {project:"Udall St",       issue:"SDG&E sketch not received — panels blocked for weeks",        owner:"Diego", due:"ASAP"},
+  {project:"920 Coronado",   issue:"Install flooring — scheduled May 11",                        owner:"Ed + Diego", due:"05/11"},
+  {project:"Silver Oak Ct",  issue:"Contract not yet signed",                                    owner:"Eitan", due:"This week"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",  note:"Window game room — molding option to review"},
-  {project:"920 Coronado",  note:"Siding facade — pending update from contractor"},
-  {project:"Udall St",      note:"Tommy entering Friday — soffits must finish first"},
-  {project:"1506 5th St",   note:"Excel numbers + binder not yet complete"},
+  {project:"920 Coronado",   note:"Siding — Archel contacts failed, finding new contractors"},
+  {project:"920 Coronado",   note:"Andrés cabinet walkthrough still pending · TV unit not fabricated"},
+  {project:"Udall St",       note:"Monday inspection — confirm soffits done tonight"},
+  {project:"Via Mar Valle",  note:"STOP work Wednesday 5/6 — Ana Maria home Thursday"},
+  {project:"Via Mar Valle",  note:"Luis Miguel — shower enclosure measurement, no date set"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Flooring install 5/11",
+  "Via Mar Valle — Wainscoting starts 5/5 · Stop work 5/6",
+  "Udall — Confirm scaffold install date this week",
+  "Udall — Sign Carl contract this week",
+  "Udall — Schedule window installation",
+  "920 Coronado — Install flooring 5/11",
   "920 Coronado — Toral walkthrough next week",
-  "920 Coronado — Cabinet review with Andrés (TV unit pending)",
-  "Udall — Tommy inspection Monday 5/4",
-  "5th Coronado — Demo complete target",
   "Close Ruette de Mer — final punchlist",
 ];
 
