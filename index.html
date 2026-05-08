@@ -306,38 +306,38 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Gas inspection today · Tub on site ✓"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer budget approved · HP report today"},
-  {name:"2130 Via Mar Valle",        pm:"Eitan + Tomas", start:"04/05", close:"05/15", closeDate:"2026-05-15", status:"active",  phase:"Wainscoting ✓ · Shower install today"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"All inspections cleared ✓ · Finish phase"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer docs pending · Daily HP report ✓"},
+  {name:"2130 Via Mar Valle",        pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"active",  phase:"Approved · Wallpaper starts Tue 5/12"},
   {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Mech + Elec ✓ · SDG&E blocking panels"},
-  {name:"Ruette de Mer",             pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Shower door ordered · Hardware pending"},
-  {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Payment approval pending"},
-  {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/13", closeDate:"2026-05-13", status:"blocked", phase:"Cabinet shelves · Marble samples"},
+  {name:"Ruette de Mer",             pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Waiting — door handle + patio fence"},
+  {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Payment received ✓ · Active"},
+  {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/13", closeDate:"2026-05-13", status:"closing", phase:"Shelves Monday · Closing out"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Site walk done · Proposal pending"},
+  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Proposal for city plans in process"},
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado",      issue:"Gas inspection today — confirm result tonight, last before final",       owner:"Eitan",         due:"TONIGHT"},
-  {project:"Udall St",          issue:"Scaffold $2,300 Day 14+ · SDG&E call today · Carl contract today",      owner:"Eitan + Diego", due:"TODAY"},
-  {project:"Ruette Montecarlo", issue:"Payment approval pending — no more carry-overs",                        owner:"Eitan",         due:"TODAY"},
-  {project:"Silver Oak Ct",     issue:"Contract not yet signed",                                               owner:"Eitan",         due:"This week"},
+  {project:"Udall St",       issue:"Scaffold $2,300 Day 15+ — stucco is next, approve today",    owner:"Eitan",      due:"TODAY"},
+  {project:"Udall St",       issue:"SDG&E — call directly today, panels blocked 1+ month",       owner:"Diego",      due:"TODAY"},
+  {project:"920 Coronado",   issue:"Tub not moved — Angel can't set drain, master tile blocked", owner:"Ed + Diego", due:"TODAY"},
+  {project:"Victor",         issue:"No response 3 consecutive days — needs direct conversation", owner:"Eitan",      due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",          note:"Siding — Diego deadline: 2 options by Friday"},
-  {project:"920 Coronado",          note:"Schedule still not uploaded to HouzzPro"},
-  {project:"Ruette de Mer",         note:"Shower door delivery still unconfirmed"},
-  {project:"5th Coronado",          note:"ADU crew decision overdue 3+ weeks"},
-  {project:"Sagebrush La Jolla",    note:"Eduardo Tishman — no proposal sent, safety issue at pool"},
+  {project:"920 Coronado",       note:"Siding — 2 contractor options due from Diego by end of week"},
+  {project:"920 Coronado",       note:"Cabinet walkthrough + TV room piece still pending with Andrés"},
+  {project:"Via Mar Valle",      note:"Wallpaper starts Tuesday 5/12 — confirm crew scheduled"},
+  {project:"Ruette de Mer",      note:"Door handle + patio fence — last two items before close"},
+  {project:"5th Coronado",       note:"Framer docs still not sent — escalate if no response today"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Gas inspection result tonight · Flooring 5/11",
-  "920 Coronado — Siding: Diego brings 2 options by Friday",
-  "Udall — Scaffold approve · Carl contract · SDG&E today",
-  "Ruette de Mer — Confirm shower door delivery date",
-  "Sagebrush La Jolla — Send proposal to Eduardo Tishman",
+  "920 Coronado — Flooring 5/11 · Siding options by Friday",
+  "920 Coronado — Tub set + tile master this week",
+  "Udall — Scaffold approve today · SDG&E call today",
+  "Via Mar Valle — Wallpaper crew Tuesday 5/12",
+  "Ruette de Mer — Door handle + fence · Ready to close",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
