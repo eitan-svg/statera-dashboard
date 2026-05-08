@@ -173,7 +173,7 @@
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#60a5fa">6</div>
+      <div class="stat-big" style="color:#60a5fa">8</div>
       <div>
         <div class="stat-title">Active Job Sites</div>
         <div class="stat-sub">across San Diego</div>
@@ -194,7 +194,7 @@
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#a78bfa">2</div>
+      <div class="stat-big" style="color:#a78bfa">1</div>
       <div>
         <div class="stat-title">Proposals Out</div>
         <div class="stat-sub">active pipeline</div>
@@ -308,13 +308,14 @@ setInterval(()=>{
 const PROJECTS=[
   {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"All inspections cleared ✓ · Finish phase"},
   {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer docs pending · Daily HP report ✓"},
-  {name:"2130 Via Mar Valle",        pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"active",  phase:"Approved · Wallpaper starts Tue 5/12"},
+  {name:"Via Mar Valle — Bath",      pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"closing", phase:"Wallpaper Tue 5/12 · Door handle pending"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"05/08", close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"Contracted ✓ · Team + schedule TBD"},
   {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Mech + Elec ✓ · SDG&E blocking panels"},
   {name:"Ruette de Mer",             pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Waiting — door handle + patio fence"},
   {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Payment received ✓ · Active"},
   {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/13", closeDate:"2026-05-13", status:"closing", phase:"Shelves Monday · Closing out"},
+  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Contracted ✓ · Architect + city plans phase"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Proposal for city plans in process"},
 ];
 
 const RED_FLAGS=[
@@ -327,17 +328,17 @@ const RED_FLAGS=[
 const WATCHLIST=[
   {project:"920 Coronado",       note:"Siding — 2 contractor options due from Diego by end of week"},
   {project:"920 Coronado",       note:"Cabinet walkthrough + TV room piece still pending with Andrés"},
-  {project:"Via Mar Valle",      note:"Wallpaper starts Tuesday 5/12 — confirm crew scheduled"},
+  {project:"Via Mar Valle",      note:"Wallpaper Tue 5/12 · Define patio team + schedule"},
   {project:"Ruette de Mer",      note:"Door handle + patio fence — last two items before close"},
-  {project:"5th Coronado",       note:"Framer docs still not sent — escalate if no response today"},
+  {project:"Sagebrush La Jolla", note:"Architect selection + city submittal timeline to define"},
 ];
 
 const MONTHLY=[
   "920 Coronado — Flooring 5/11 · Siding options by Friday",
   "920 Coronado — Tub set + tile master this week",
-  "Udall — Scaffold approve today · SDG&E call today",
-  "Via Mar Valle — Wallpaper crew Tuesday 5/12",
-  "Ruette de Mer — Door handle + fence · Ready to close",
+  "Udall — Scaffold approve · SDG&E call today",
+  "Via Mar Valle — Wallpaper Tue · Patio team + schedule",
+  "Sagebrush La Jolla — Select architect · City plans phase",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
