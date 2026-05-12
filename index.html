@@ -128,6 +128,8 @@
   .watch-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
   .watch-project { font-size: 16px; font-weight: 700; color: #fde68a; }
   .watch-note { font-size: 14px; color: #94a3b8; margin-top: 4px; }
+  .win-item { padding-top: 8px; margin-top: 8px; border-top: 1px solid rgba(34,197,94,0.12); font-size: 13px; color: #86efac; line-height: 1.4; }
+  .win-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
 
   /* FOOTER */
   .footer { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 7px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
@@ -247,6 +249,13 @@
         </div>
         <div id="red-flags"></div>
       </div>
+      <div class="card" style="border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.05);flex:0 0 auto;">
+        <div class="section-label" style="color:#22c55e">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:10px;box-shadow:0 0 8px #22c55e;vertical-align:middle"></span>
+          Big Wins Today
+        </div>
+        <div id="big-wins"></div>
+      </div>
       <div class="card yellow-card">
         <div class="section-label" style="color:#f59e0b">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:10px;vertical-align:middle"></span>
@@ -306,38 +315,43 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"Tub being set · Windows in progress"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer confirmed June 1 · Demo coordinating"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"05/31", closeDate:"2026-05-31", status:"active",  phase:"3 windows ✓ · Tub resolved · Mud in progress"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Driveway demo ✓ · Framer June 1"},
   {name:"Via Mar Valle — Bath",      pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"closing", phase:"Wallpaper Tue 5/12 · Stone sample pending"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"05/08", close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"SOW + numbers in progress · Stone TBD"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Gas + water started · SDG&E blocking panels"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"05/08", close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"Contractor meeting today · Numbers in progress"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"05/30", closeDate:"2026-05-30", status:"blocked", phase:"Excavation started · SDG&E blocking panels"},
   {name:"Ruette de Mer",             pm:"Eitan",         start:"02/01", close:"05/15", closeDate:"2026-05-15", status:"closing", phase:"Waiting — door handle + patio fence"},
   {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Active"},
-  {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/11", closeDate:"2026-05-11", status:"closing", phase:"Shelves installing today · Closing out"},
+  {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/11", closeDate:"2026-05-11", status:"closing", phase:"Shelves at AZI · Confirm install date"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Contracted ✓ · Architect sourcing first"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
 
+const BIG_WINS=[
+  "920 Coronado — All 3 windows installed ✅",
+  "920 Coronado — Tub resolved, no drain mod needed ✅",
+  "5th Coronado — Driveway + concrete demo complete ✅",
+  "Via Mar Valle — Full contractor meeting held ✅",
+  "Udall — Excavation started, gas + water underway ✅",
+];
+
 const RED_FLAGS=[
-  {project:"Udall St",          issue:"Scaffold $2,300 — dates programmed, approve in writing today",    owner:"Eitan",      due:"TODAY"},
-  {project:"Udall St",          issue:"SDG&E sketch — over 1 month blocked, call directly today",       owner:"Diego",      due:"TODAY"},
-  {project:"Ruette Montecarlo", issue:"Payment pending 4 weeks — close today, no more carry-overs",     owner:"Eitan",      due:"TODAY"},
+  {project:"Udall St",          issue:"Scaffold sign 5/18 — no delays · SDG&E one call fixes panels today", owner:"Diego + Eitan", due:"TODAY + 5/18"},
+  {project:"Ruette Montecarlo", issue:"Payment pending 5 weeks — close today, final warning",               owner:"Eitan",         due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Siding — still no contractors, no deadline assigned"},
-  {project:"920 Coronado",       note:"TV room cabinet — last Andrés item, no confirmed date"},
-  {project:"Via Mar Valle Patio",note:"Stone sample decision pending from client — no pick = no start"},
-  {project:"5th Coronado",       note:"Concrete demo — scope defined, need start date + crew"},
+  {project:"920 Coronado",       note:"Mud banister removal · Siding deadline · TV room cabinet pending"},
+  {project:"5th Coronado",       note:"Framer docs still pending — June 1 at risk if not submitted this week"},
+  {project:"Via Mar Valle Patio",note:"Stone selection pending from client — no pick = no start"},
   {project:"Sagebrush La Jolla", note:"Architect sourcing — first step, no movement yet"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Tub set today · Windows this week · Flooring 5/11",
-  "Udall — Scaffold approve · SDG&E call · Benny today",
-  "5th Coronado — Framer June 1 · Demo crew + date this week",
-  "Via Mar Valle — Wallpaper Tue · Client stone pick this week",
-  "Iowa — Close out today",
+  "920 Coronado — Flooring · Mud · Siding options this week",
+  "Udall — Scaffold sign 5/18 · SDG&E call today",
+  "5th Coronado — Framer docs · Central demo crew + date",
+  "Iowa — Confirm AZI install date · Close out",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
@@ -431,6 +445,11 @@ document.getElementById('red-flags').innerHTML=RED_FLAGS.map((f,i)=>
     <div class="flag-row"><span class="flag-project">${f.project}</span><span class="flag-due">${f.due}</span></div>
     <div class="flag-issue">${f.issue}</div><div class="flag-owner">Owner: ${f.owner}</div>
   </div>`
+).join('');
+
+// ── BIG WINS ─────────────────────────────────────────────────
+document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
+  `<div class="win-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>${w}</div>`
 ).join('');
 
 // ── WATCHLIST ────────────────────────────────────────────────
