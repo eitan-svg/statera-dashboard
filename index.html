@@ -165,24 +165,24 @@
   </div>
 
   <!-- STATS -->
-  <div class="stats-row">
+  <div class="stats-row" style="grid-template-columns:repeat(5,1fr)">
     <div class="stat-card">
-      <div class="stat-big" style="color:#22c55e">68</div>
+      <div class="stat-big" style="color:#22c55e">70</div>
       <div>
         <div class="stat-title">Projects Delivered</div>
-        <div class="stat-year" style="color:#22c55e">13 this year</div>
+        <div class="stat-year" style="color:#22c55e">15 this year</div>
         <div class="stat-sub">all time</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#60a5fa">8</div>
+      <div class="stat-big" style="color:#60a5fa">7</div>
       <div>
         <div class="stat-title">Active Job Sites</div>
         <div class="stat-sub">across San Diego</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#f59e0b">3</div>
+      <div class="stat-big" style="color:#f59e0b">4</div>
       <div>
         <div class="stat-title">5-Star Reviews</div>
         <div class="stars">
@@ -196,10 +196,17 @@
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#a78bfa">1</div>
+      <div class="stat-big" style="color:#a78bfa">2</div>
       <div>
         <div class="stat-title">Proposals Out</div>
         <div class="stat-sub">active pipeline</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big" style="color:#34d399">2</div>
+      <div>
+        <div class="stat-title">New Leads</div>
+        <div class="stat-sub">in conversation</div>
       </div>
     </div>
   </div>
@@ -315,14 +322,12 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"06/15", closeDate:"2026-06-15", status:"active",  phase:"Kitchen in ✓ · Tub in ✓ · Carpentries today"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Kitchen in ✓ · Tub in ✓ · Carpentries today"},
   {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer June 1 · Advance paid ✓ · W9 pending"},
   {name:"Via Mar Valle — Bath",      pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"closing", phase:"Paint + shower accessories pending"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"05/25", close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"All quotes in · Budget presentation near"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"TBD",   close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"All quotes in · Budget presentation near"},
   {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Insulation active · SDG&E sketch received ✓"},
-  {name:"Ruette de Mer",             pm:"Eitan",         start:"02/01", close:"05/30", closeDate:"2026-05-30", status:"closing", phase:"Shower door + hardware in process"},
   {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Work restarted · Fans delivered ✓"},
-  {name:"Iowa",                      pm:"Diego",         start:"—",     close:"05/28", closeDate:"2026-05-28", status:"closing", phase:"Shelves at AZI · Confirm install + close"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Contracted ✓ · Architect sourcing — no movement"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
@@ -336,27 +341,25 @@ const BIG_WINS=[
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado",   issue:"Closet fabrication defect — upper floor delayed, who is remaking them?", owner:"Eitan",  due:"TODAY"},
-  {project:"920 Coronado",   issue:"Kitchen cabinet damage — Debbie notified, replacement or credit?",        owner:"Eitan",  due:"TODAY"},
-  {project:"Udall St",       issue:"Title 24 — R19 to R15 change pending, follow up today or inspection delays", owner:"Diego", due:"TODAY"},
-  {project:"Udall St",       issue:"Roof flashings — roofer from 920 being contacted, confirm response today", owner:"Diego", due:"TODAY"},
-  {project:"5th Coronado",   issue:"Framer W9 still not received — starts June 1, 4 days away",              owner:"Diego",  due:"TODAY"},
-  {project:"5802 Sagebrush", issue:"Architect sourcing — zero movement, nothing else can happen",             owner:"Eitan",  due:"This week"},
+  {project:"920 Coronado",   issue:"Closet defect + kitchen damage — who is remaking, replacement or credit?", owner:"Eitan",         due:"TODAY"},
+  {project:"Udall St",       issue:"Title 24 R19→R15 · Roof flashings — both need response today",            owner:"Diego + Eitan", due:"TODAY"},
+  {project:"5th Coronado",   issue:"Framer W9 still not received — June 1 is 4 days away",                    owner:"Diego",         due:"TODAY"},
+  {project:"5802 Sagebrush", issue:"Architect sourcing — zero movement, nothing else can happen",              owner:"Eitan",         due:"This week"},
 ];
 
 const WATCHLIST=[
   {project:"920 Coronado",       note:"Siding — open 2+ months, still no contractors or deadline"},
   {project:"920 Coronado",       note:"Flooring — handrail removal needed to continue upper floor"},
-  {project:"Iowa",               note:"Shelves at AZI — confirm install date and fully close"},
   {project:"Via Mar Valle Patio",note:"Client budget presentation ready — schedule meeting this week"},
+  {project:"5th Coronado",       note:"Framer docs — June 1 start at risk if not submitted today"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Resolve closet defect · Flooring + tile this week",
-  "Udall — Title 24 today · Roof flashing · Windows Sat",
-  "5th Coronado — W9 today · Framer June 1 in 4 days",
-  "Via Mar Valle Patio — Present full budget to client",
-  "Iowa — Confirm AZI install · Close out",
+  "920 Coronado — Closet defect resolved · Flooring + tile this week",
+  "Udall — Title 24 + flashings today · Windows Sat",
+  "5th Coronado — W9 today · Framer June 1",
+  "Via Mar Valle Patio — Define start date with client this week",
+  "Sagebrush — Source architect this week",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
