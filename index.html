@@ -322,13 +322,13 @@ setInterval(()=>{
 
 // ── DATA ─────────────────────────────────────────────────────
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Kitchen in ✓ · Tub in ✓ · Carpentries today"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Framer June 1 · Advance paid ✓ · W9 pending"},
-  {name:"Via Mar Valle — Bath",      pm:"Eitan + Tomas", start:"04/05", close:"05/30", closeDate:"2026-05-30", status:"closing", phase:"Paint + shower accessories pending"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"TBD",   close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"All quotes in · Budget presentation near"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Insulation active · SDG&E sketch received ✓"},
-  {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Work restarted · Fans delivered ✓"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Contracted ✓ · Architect sourcing — no movement"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Tile done ✓ · Cabinets today · Closets in progress"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Plumbing started ✓ · Framer June 1 · W9 pending"},
+  {name:"Via Mar Valle — Bath",      pm:"Eitan + Tomas", start:"04/05", close:"06/15", closeDate:"2026-06-15", status:"closing", phase:"Wallpaper pending · Paint + accessories pending"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"TBD",   close:"07/31", closeDate:"2026-07-31", status:"active",  phase:"All quotes in ✓ · Budget presentation ready"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Insulation active · Carl stucco Tuesday"},
+  {name:"Ruette Montecarlo",         pm:"Eitan + Tomas", start:"03/10", close:"06/10", closeDate:"2026-06-10", status:"active",  phase:"Work restarted · Monitoring"},
+  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Waiting on Eduardo · Off action list"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
 
@@ -336,30 +336,31 @@ const BIG_WINS=[
   "920 Coronado — Full correction notice cleared · Every inspection passed · Finish phase ✅",
   "Felspar — All 5 units delivered and closed after 7 weeks of punch lists ✅",
   "New Contracts — Via Marvalle patio + 5802 Sagebrush office signed same week ✅",
-  "Udall — SDG&E sketch received · Scaffold in · Three inspections passed ✅",
+  "Udall — Scaffold in · SDG&E sketch received · Stucco lined up for Tuesday ✅",
   "Daily Reporting — Morning + EOD accountability running consistently across the team ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado",   issue:"Closet defect + kitchen damage — who is remaking, replacement or credit?", owner:"Eitan",         due:"TODAY"},
-  {project:"Udall St",       issue:"Title 24 R19→R15 · Roof flashings — both need response today",            owner:"Diego + Eitan", due:"TODAY"},
-  {project:"5th Coronado",   issue:"Framer W9 still not received — June 1 is 4 days away",                    owner:"Diego",         due:"TODAY"},
-  {project:"5802 Sagebrush", issue:"Architect sourcing — zero movement, nothing else can happen",              owner:"Eitan",         due:"This week"},
+  {project:"Udall St",     issue:"Carl stucco deposit needed today — starts Tuesday, deposit confirms mobilization", owner:"Eitan",  due:"TODAY"},
+  {project:"Udall St",     issue:"Title 24 R19→R13 · Roof flashings — both need confirmation today",               owner:"Diego",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Tile payment — Moni submitted, approve today so grout not delayed",              owner:"Eitan",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Upper floor closets — fabrication defect, who is remaking and when?",            owner:"Eitan",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Framer W9 still not received — June 1 is tomorrow",                             owner:"Diego",  due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Siding — open 2+ months, still no contractors or deadline"},
-  {project:"920 Coronado",       note:"Flooring — handrail removal needed to continue upper floor"},
-  {project:"Via Mar Valle Patio",note:"Client budget presentation ready — schedule meeting this week"},
-  {project:"5th Coronado",       note:"Framer docs — June 1 start at risk if not submitted today"},
+  {project:"920 Coronado",       note:"Siding — material on site, quantity being reviewed"},
+  {project:"920 Coronado",       note:"Laundry duct — partially installed, needs securing"},
+  {project:"Via Mar Valle Patio",note:"Budget presentation ready — schedule client meeting"},
+  {project:"Via Mar Valle Bath", note:"Wallpaper + paint + shower accessories all pending"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Closet defect resolved · Flooring + tile this week",
-  "Udall — Title 24 + flashings today · Windows Sat",
-  "5th Coronado — W9 today · Framer June 1",
-  "Via Mar Valle Patio — Define start date with client this week",
-  "Sagebrush — Source architect this week",
+  "920 Coronado — Tile grout · Upper closet resolution · Siding",
+  "Udall — Carl deposit today · Title 24 · Windows Sat",
+  "5th Coronado — W9 today · Framer starts June 1",
+  "Via Mar Valle Patio — Present budget to client",
+  "Via Mar Valle Bath — Complete wallpaper + paint",
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
