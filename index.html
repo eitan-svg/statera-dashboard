@@ -320,51 +320,48 @@ setInterval(()=>{
     .catch(()=>{});
 }, 5 * 60 * 1000);
 
-// ── DATA ─────────────────────────────────────────────────────
-
-
+const VALUES=["Details Matter.","People Matter.","Results Matter."];
 
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"04/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Painting Sat · Stone Mon · Closets June 10"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", closeDate:"2026-12-31", status:"active",  phase:"Kappa walkthrough tomorrow · Pour TBD"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", closeDate:"2026-08-15", status:"active",  phase:"Demo active ✓ · Larry next week"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Stucco tomorrow ✓ · T24 print today"},
-  {name:"Jaime — Presidio #235",     pm:"Eitan",         start:"06/17", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"A/C June 17 · Advance to Juan today"},
-  {name:"Naccy — 2790 Escala Cir",   pm:"Saúl + Diego",  start:"TBD",   close:"—",    closeDate:null,         status:"pre-con", phase:"New project · Scoping this week"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"05/11", close:"—",     closeDate:null,         status:"active",  phase:"Waiting on Eduardo"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"Painting active · Game room floor · Stair templates"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", closeDate:"2026-12-31", status:"blocked", phase:"Kappa cancelled — formwork not finished"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", closeDate:"2026-08-15", status:"active",  phase:"Demo continuing · Plans delivered to team"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Stucco prep ✓ · Doors · Insulation"},
+  {name:"Jaime — Presidio #235",     pm:"Eitan",         start:"06/17", close:"06/21", closeDate:"2026-06-21", status:"active",  phase:"A/C on roof ✓ · Old system disconnect"},
+  {name:"Nancy — 2790 Escala Cir",   pm:"Saúl + Diego",  start:"06/09", close:"06/26", closeDate:"2026-06-26", status:"active",  phase:"Drywall complete ✓ · Flooring this week"},
+  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"active",  phase:"Waiting on Eduardo"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting for Contract"},
 ];
 
 const BIG_WINS=[
-  "Udall — Shear wall letter received · Stucco starts tomorrow ✅",
-  "920 Coronado — TV room framed · Painting Sat · Stone Mon ✅",
-  "Via Mar Valle — Demo active · Larry confirmed next week ✅",
-  "Ruette Montecarlo — Toilet installed · Project closing out ✅",
-  "5th Coronado — Engineering in plans · Kappa walkthrough tomorrow ✅",
+  "Udall — Stucco prep active, black paper + mesh going up ✅",
+  "920 Coronado — Painting active across living room, kitchen, hallway ✅",
+  "Nancy — Drywall fully complete including all patches ✅",
+  "Jaime Presidio — A/C unit placed on roof ✅",
+  "Via Marvalle — New plans delivered, modifications reviewed with team ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"Jaime / Udall",  issue:"Juan A/C advance today · Luis Miguel pay · SDG&E sketch pay",    owner:"Eitan",  due:"TODAY"},
-  {project:"Udall St",       issue:"T24 must print today — Carl starts stucco tomorrow",             owner:"Diego",  due:"TODAY"},
-  {project:"920 Coronado",   issue:"Closets June 10 tomorrow · Baseboards pay today · Grille fix",   owner:"Eitan",  due:"TODAY"},
-  {project:"5th Coronado",   issue:"Pour date TBD pending Kappa · W9 last flag",                    owner:"Diego",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Kappa cancelled — formwork not done, need firm completion date", owner:"Diego", due:"TODAY"},
+  {project:"920 Coronado", issue:"Vanity light off-center, TV frame needs Debbie sign-off",       owner:"Eitan", due:"TODAY"},
+  {project:"Nancy",        issue:"Flooring delivery unconfirmed, island cabinets no date",        owner:"Diego", due:"TODAY"},
+  {project:"Via Mar Valle",issue:"Appliance specs not finalized, blocking electrical + plumbing", owner:"Eitan", due:"This week"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Shower step + drain channel pending from Miguel"},
-  {project:"920 Coronado",       note:"Siding — painter coordinating with Debbie"},
-  {project:"Naccy — Escala",     note:"New project — scope + numbers needed this week"},
-  {project:"Via Mar Valle Patio",note:"Waterproofing on slab after demo · Larry next week"},
+  {project:"920 Coronado", note:"Terrace spotlights — Mitch to replace this week"},
+  {project:"920 Coronado", note:"Quality control — shower step tile, grille placement"},
+  {project:"5th Coronado", note:"Column relocation, change orders being documented"},
+  {project:"Via Mar Valle Patio", note:"Bar relocation, copper pipe replacement"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Closets June 10 · Baseboards · Painting Sat · Stone Mon",
-  "Udall — Stucco tomorrow · T24 today · Luis Miguel + SDG&E pay",
-  "5th Coronado — Kappa tomorrow · Inspection Mon · Pour TBD",
-  "Jaime — A/C June 17 · Advance today · Scope drywall + paint",
-  "Naccy — Scope + estimate this week",
+  "920 Coronado — Painting, flooring, stair, TV frame sign-off",
+  "5th Coronado — Get firm formwork date, reschedule Kappa",
+  "Udall — Stucco continues, doors, roof flashing",
+  "Nancy — Confirm flooring delivery, cabinet timeline",
+  "Via Mar Valle — Finalize appliance specs",
 ];
-
 
 const SC={active:"#22c55e",blocked:"#ef4444",closing:"#f59e0b","pre-con":"#60a5fa"};
 
