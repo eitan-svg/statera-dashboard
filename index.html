@@ -327,46 +327,47 @@ setInterval(()=>{
     .catch(()=>{});
 }, 5 * 60 * 1000);
 
-const VALUES=["Details Matter.","People Matter.","Results Matter."];
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"06/30", closeDate:"2026-06-30", status:"active",  phase:"TV frame corrections, stone, stair glass fab"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", closeDate:"2026-12-31", status:"blocked", phase:"CO meeting with Luis today"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", closeDate:"2026-08-15", status:"active",  phase:"Larry electrical started today"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Drywall + stucco active"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", closeDate:"2026-07-15", status:"active",  phase:"TV frame done, stair wood done, glass fab"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", closeDate:"2026-12-31", status:"blocked", phase:"Full team meeting today, COs pending"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", closeDate:"2026-08-15", status:"active",  phase:"Demo done, Larry electrical + trenches active"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Stucco scratch + brown done, finish coat 1 wk"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending, July start"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
 ];
 
 const BIG_WINS=[
-  "Via Marvalle — Larry electrical started, first trade active after demo ✅",
-  "920 Coronado — Grilles counted + installed, outlets + perforations done ✅",
-  "Udall — Drywall and stucco both active simultaneously ✅",
+  "920 Coronado — TV frame done, shower step done, stair wood done, faucets in ✅",
+  "Udall — Scratch + brown coat complete, finish coat one week out ✅",
+  "Via Mar Valle — Demo complete, Larry electrical + trenches active ✅",
   "920 Coronado — Cleared full correction notice, every inspection passed ✅",
   "Daily Reporting — Morning + EOD accountability running consistently ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"TV frame corrections — review with Andres today or loses another day", owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Miguel shower step + niche — final chance or reassign today",          owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Cabinets, stair + handrail, laundry duct, spotlights — all no date",  owner:"Diego", due:"TODAY"},
-  {project:"5th Coronado", issue:"COs must be written and ready to send client after Luis meeting",      owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"Bathroom tile count — cannot order materials without it",              owner:"Diego", due:"TODAY"},
+  {project:"920 Coronado", issue:"Handrail — glass arriving soon, Andres must install before it gets here", owner:"Eitan", due:"TODAY"},
+  {project:"920 Coronado", issue:"Cabinets master bed + family room + office — who and when, decide today",  owner:"Eitan", due:"TODAY"},
+  {project:"920 Coronado", issue:"Laundry duct Tommy + spotlights Mitch + game room tile — all no date",    owner:"Diego", due:"TODAY"},
+  {project:"5th Coronado", issue:"COs must come out of today's meeting formally written + ready to send",   owner:"Diego", due:"TODAY"},
+  {project:"Udall St",     issue:"Tile count still not done — material list cannot be finalized without it", owner:"Diego", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Master bath grille wrong size, office cover plate oversize — order both"},
-  {project:"920 Coronado",       note:"Baseboard paint — confirm material delivery today"},
-  {project:"Nancy + Jaime",      note:"Both complete — follow up final payment collections today"},
-  {project:"Via Mar Valle Patio",note:"Trenches after demo complete, wall layout next"},
+  {project:"920 Coronado",       note:"Game room shower enclosure — follow up on fabrication status"},
+  {project:"920 Coronado",       note:"Master bath grille wrong size — correct and order"},
+  {project:"Via Mar Valle Patio",note:"Larry completion date — confirm tonight based on wall layout"},
+  {project:"Nancy + Jaime",      note:"Both complete — follow up final payment today"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — TV frame, Miguel tile, stair, cabinets, spotlights",
-  "Udall — Tile count, stucco + drywall, insulation, material list",
-  "5th Coronado — COs to client after Luis meeting today",
-  "Via Mar Valle — Electrical, trenches, wall layout",
-  "Silver Oak — Get signature, confirm July start",
+  "920 Coronado — Handrail, cabinets, spotlights, laundry duct, glass",
+  "Udall — Tile count today, finish coat next week, material list",
+  "5th Coronado — COs to client, inspection, framer ready",
+  "Via Mar Valle — Larry completion date, trenches, wall layout",
+  "Silver Oak — Signature + confirm July start",
 ];
+
+const VALUES=["Details Matter.","People Matter.","Results Matter."];
 
 
 
