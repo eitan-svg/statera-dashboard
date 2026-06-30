@@ -328,44 +328,45 @@ setInterval(()=>{
 }, 5 * 60 * 1000);
 
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", closeDate:"2026-07-15", status:"active",  phase:"TV frame done, stair wood done, glass fab"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", closeDate:"2026-12-31", status:"blocked", phase:"Full team meeting today, COs pending"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", closeDate:"2026-08-15", status:"active",  phase:"Demo done, Larry electrical + trenches active"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", closeDate:"2026-09-30", status:"active",  phase:"Stucco scratch + brown done, finish coat 1 wk"},
-  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending, July start"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-07-15", status:"active",  phase:"Major punch list active, cabinets delaying stone"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Framer quality concern, CO meeting today"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Wall construction started, electrical active"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Finish coat planned, Carl payment needed"},
+  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending, July start"},
+  {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
 ];
 
 const BIG_WINS=[
-  "920 Coronado — TV frame done, shower step done, stair wood done, faucets in ✅",
-  "Udall — Scratch + brown coat complete, finish coat one week out ✅",
-  "Via Mar Valle — Demo complete, Larry electrical + trenches active ✅",
+  "920 Coronado — TV frame done, stair wood done, baseboard material in ✅",
+  "Via Mar Valle — Wall construction (bardas) started, electrical active ✅",
+  "Udall — Drywall active, finish coat color plan skips painting step ✅",
   "920 Coronado — Cleared full correction notice, every inspection passed ✅",
   "Daily Reporting — Morning + EOD accountability running consistently ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"Handrail — glass arriving soon, Andres must install before it gets here", owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Cabinets master bed + family room + office — who and when, decide today",  owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Laundry duct Tommy + spotlights Mitch + game room tile — all no date",    owner:"Diego", due:"TODAY"},
-  {project:"5th Coronado", issue:"COs must come out of today's meeting formally written + ready to send",   owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"Tile count still not done — material list cannot be finalized without it", owner:"Diego", due:"TODAY"},
+  {project:"920 Coronado", issue:"Flash payment dispute + gas valve charge — review and align today",  owner:"Eitan", due:"TODAY"},
+  {project:"5th Coronado", issue:"Source new framer — Flash quality concern, need replacement",          owner:"Diego", due:"This week"},
+  {project:"920 Coronado", issue:"Cabinets — 3 rooms no date, now delaying stone work, resolve this week", owner:"Diego", due:"This week"},
+  {project:"Udall St",     issue:"Carl material payment — approve today, last stage before done",        owner:"Eitan", due:"TODAY"},
+  {project:"5th Coronado", issue:"Luis CO payment — confirm scope with Ed before approving",             owner:"Eitan", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Game room shower enclosure — follow up on fabrication status"},
-  {project:"920 Coronado",       note:"Master bath grille wrong size — correct and order"},
-  {project:"Via Mar Valle Patio",note:"Larry completion date — confirm tonight based on wall layout"},
-  {project:"Nancy + Jaime",      note:"Both complete — follow up final payment today"},
+  {project:"920 Coronado",       note:"Handrail still not installed — top sequencing risk for glass"},
+  {project:"920 Coronado",       note:"Major punch list — kitchen, bedrooms, baths, game room all open"},
+  {project:"Udall St",           note:"Bathroom tile count still pending"},
+  {project:"Nancy + Jaime",      note:"Both complete — follow up final payment"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Handrail, cabinets, spotlights, laundry duct, glass",
-  "Udall — Tile count today, finish coat next week, material list",
-  "5th Coronado — COs to client, inspection, framer ready",
-  "Via Mar Valle — Larry completion date, trenches, wall layout",
-  "Silver Oak — Signature + confirm July start",
+  "920 Coronado — Resolve cabinets, handrail, full punch list",
+  "Udall — Carl payment, finish coat start, tile count",
+  "5th Coronado — Framer decision, Luis CO, inspection",
+  "Via Mar Valle — Wall construction, electrical, trenches",
+  "Silver Oak — Get signature, confirm July start",
 ];
+
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
 
@@ -427,7 +428,7 @@ document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   return `<tr>
     <td><div class="proj-name"><span class="sdot" style="background:${c};box-shadow:0 0 7px ${c}90"></span>${p.name}</div></td>
     <td class="td-pm">${p.pm}</td><td class="td-phase">${p.phase}</td>
-    <td class="td-date c">${p.start}</td><td class="td-date c">${p.close}</td>
+    <td class="td-date c">${p.start}</td><td class="td-date c">${p.originalClose && p.originalClose!==p.close ? `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">${p.originalClose}</span><span style="color:#e2e8f0;font-weight:600">${p.close}</span><span style="font-size:9px;color:#f59e0b;font-weight:700;letter-spacing:0.5px">+${Math.round((new Date(p.closeDate)-new Date(p.originalCloseDate))/(1000*60*60*24))}D</span></div>` : p.close}</td>
     <td class="c">${v}</td>
   </tr>`;
 }).join('');
