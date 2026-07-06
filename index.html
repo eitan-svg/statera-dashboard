@@ -326,47 +326,48 @@ setInterval(()=>{
     })
     .catch(()=>{});
 }, 5 * 60 * 1000);
-
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-07-15", status:"active",  phase:"Major punch list active, cabinets delaying stone"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Framer quality concern, CO meeting today"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Wall construction started, electrical active"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Finish coat planned, Carl payment needed"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-07-15", status:"active",  phase:"Punch list active, cabinets blocking stone"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Carl agreed, COs ready to send Jorge today"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"3 walls poured, electrical active"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Finish coat Tuesday, drywall inspection today"},
   {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending, July start"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
   {name:"Levine Family — Flooring",  pm:"TBD",           start:"08/10", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"New flooring installation"},
 ];
 
 const BIG_WINS=[
-  "920 Coronado — TV frame done, stair wood done, baseboard material in ✅",
-  "Via Mar Valle — Wall construction (bardas) started, electrical active ✅",
-  "Udall — Drywall active, finish coat color plan skips painting step ✅",
-  "920 Coronado — Cleared full correction notice, every inspection passed ✅",
+  "Udall — Stucco finish coat scheduled Tuesday 07/07 ✅",
+  "920 Coronado — Master bath shower enclosure + gas valve + baseboards done ✅",
+  "Via Mar Valle — 3 walls poured, trenches done, bar relocation complete ✅",
+  "5th Coronado — CO breakdown complete, Carl framing price agreed ✅",
   "Daily Reporting — Morning + EOD accountability running consistently ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"Flash payment dispute + gas valve charge — review and align today",  owner:"Eitan", due:"TODAY"},
-  {project:"5th Coronado", issue:"Source new framer — Flash quality concern, need replacement",          owner:"Diego", due:"This week"},
-  {project:"920 Coronado", issue:"Cabinets — 3 rooms no date, now delaying stone work, resolve this week", owner:"Diego", due:"This week"},
-  {project:"Udall St",     issue:"Carl material payment — approve today, last stage before done",        owner:"Eitan", due:"TODAY"},
-  {project:"5th Coronado", issue:"Luis CO payment — confirm scope with Ed before approving",             owner:"Eitan", due:"TODAY"},
+  {project:"920 Coronado", issue:"Cabinets — #1 blocker, stone cannot start, call Andres today",          owner:"Eitan",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Handrail + upstairs shower leak + game room tile + low voltage",         owner:"Diego",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Light bulbs + Flash TV finiquito + Andres approval pending",             owner:"Diego",  due:"TODAY"},
+  {project:"Udall St",     issue:"Confirm Nate released area, Carl confirmed for stucco tomorrow",         owner:"Diego",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Send COs to Jorge + update Carl contract + Ed + Carl meeting this week", owner:"Diego",  due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Handrail still not installed — top sequencing risk for glass"},
-  {project:"920 Coronado",       note:"Major punch list — kitchen, bedrooms, baths, game room all open"},
-  {project:"Udall St",           note:"Bathroom tile count still pending"},
-  {project:"Nancy + Jaime",      note:"Both complete — follow up final payment"},
+  {project:"920 Coronado",       note:"Stair glass in fab, handrail must be done before arrival"},
+  {project:"Via Mar Valle Patio",note:"Stair wall dimensions to Yessenia today"},
+  {project:"Udall St",           note:"Bathroom tile count still pending, needed for material list"},
+  {project:"Nancy + Jaime",      note:"Both complete, follow up final payment collections"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Resolve cabinets, handrail, full punch list",
-  "Udall — Carl payment, finish coat start, tile count",
-  "5th Coronado — Framer decision, Luis CO, inspection",
-  "Via Mar Valle — Wall construction, electrical, trenches",
-  "Silver Oak — Get signature, confirm July start",
+  "920 Coronado — Cabinets today, handrail, punch list, stone, close",
+  "Udall — Finish coat Tue, drywall inspection, tile count, material list",
+  "5th Coronado — COs to Jorge, Carl contract, Ed + Carl meeting",
+  "Via Mar Valle — Yessenia dims today, electrical, concrete, copper pipe",
+  "Silver Oak — Get signature this week",
 ];
+
+
 
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
