@@ -326,44 +326,45 @@ setInterval(()=>{
     })
     .catch(()=>{});
 }, 5 * 60 * 1000);
+
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-07-15", status:"active",  phase:"HERS inspection scheduled · Final inspection list active"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Carl $45K agreed · CO info ready for Jorge"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Stair wall active · Gas + water + copper pipe"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Drywall all levels · Final coat Thu-Fri 07/16-17"},
-  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending, July start"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"07/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-07-15", status:"active",  phase:"HERS passed, threshold today, electrical + millwork active"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"City corrections received, waiting on updated plans"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Stair wall active, gas + water + copper pipe running"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Stucco finish coat started, drywall wrapping up"},
+  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/01", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Contract sent, signature pending"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
   {name:"Levine Family — Flooring",  pm:"TBD",           start:"08/10", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"New flooring installation"},
 ];
 
 const BIG_WINS=[
-  "Udall — Drywall active all levels, final coat Thu-Fri, tile moving to site ✅",
-  "920 Coronado — HERS inspection scheduled, threshold arriving today ✅",
-  "920 Coronado — Stair shower repaired, laundry tile installed ✅",
-  "Via Mar Valle — Stair wall active, concrete color sent to Christian ✅",
-  "5th Coronado — Carl framing $45K agreed, CO breakdown complete ✅",
+  "920 Coronado — HERS inspection passed, Debbie paid $485 ✅",
+  "Udall — Stucco finish coat started today, tile moving to site ✅",
+  "920 Coronado — Upstairs shower leak repaired, garage stair frame done ✅",
+  "Via Mar Valle — Concrete color sent to Christian, limestone dims confirmed ✅",
+  "5th Coronado — CO breakdown complete, Carl framing $45K agreed ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"Handrail — Andres must install before glass arrives",              owner:"Diego",  due:"TODAY"},
-  {project:"920 Coronado", issue:"Cabinets master + family room + office — still no date, blocking stone", owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Angel plumbing piece wrong — return + replace today",              owner:"Diego",  due:"TODAY"},
-  {project:"5th Coronado", issue:"Send COs to Jorge today · Modify Carl contract before meeting",   owner:"Diego",  due:"TODAY"},
-  {project:"Udall St",     issue:"Tile move from storage to site today · Material list continue",   owner:"Diego",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Send COs to Jorge today — ready for weeks, no more delays",        owner:"Eitan",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Send dates to Liat + confirm Carl contract scope changes",         owner:"Eitan",  due:"TODAY"},
+  {project:"5th Coronado", issue:"City corrections received — wait on Sergio plans before new dates", owner:"Diego",  due:"This week"},
+  {project:"920 Coronado", issue:"Angel wrong piece — return + reorder today, master bath at 95%",   owner:"Diego",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Flash finiquito — confirm deduction amount for TV frame work",     owner:"Eitan",  due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"HERS inspection confirmation pending · Final inspection list in progress"},
-  {project:"920 Coronado",       note:"Backsplash, stone fireplaces, mirrors, LED cabinet lights pending"},
-  {project:"Via Mar Valle Patio",note:"Larry running lines in stair wall today, gas + water active"},
+  {project:"920 Coronado",       note:"Cabinets master + family room + office still no date"},
+  {project:"920 Coronado",       note:"Stone fireplaces, backsplash, mirrors, handrail all active"},
+  {project:"Via Mar Valle Patio",note:"2 additional walls approved for repair, limestone layout to differ from drawing"},
   {project:"Leads",              note:"Becker, 920 Country Club, Coronado, Mustang Ridge — follow up"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Handrail, cabinets, HERS, final inspection, close",
-  "Udall — Final coat Thu-Fri, tile to site, drywall complete, material list",
-  "5th Coronado — COs to Jorge, Carl contract, Ed + Carl meeting",
-  "Via Mar Valle — Gas + water, copper pipe, stair wall, electrical",
+  "920 Coronado — Angel piece, Flash finiquito, cabinets, stone, close",
+  "Udall — Finish coat, Pablo tile tomorrow, drywall done tomorrow",
+  "5th Coronado — COs Jorge, Liat dates, Carl contract, city corrections",
+  "Via Mar Valle — Gas + water, copper pipe, stair wall plaster",
   "New Leads — Becker, 920 Country Club, Coronado, Mustang Ridge",
 ];
 
