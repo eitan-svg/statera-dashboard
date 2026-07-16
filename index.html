@@ -256,7 +256,7 @@
 
     <!-- RIGHT -->
     <div class="right-col">
-      <div class="card red-card">
+      <div class="card red-card" style="flex:0 0 auto;">
         <div class="section-label" style="color:#ef4444">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:10px;box-shadow:0 0 8px #ef4444;vertical-align:middle"></span>
           Red Flag Zone
@@ -270,7 +270,7 @@
         </div>
         <div id="big-wins"></div>
       </div>
-      <div class="card yellow-card">
+      <div class="card yellow-card" style="flex:1;">
         <div class="section-label" style="color:#f59e0b">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:10px;vertical-align:middle"></span>
           Yellow Watchlist
@@ -346,8 +346,7 @@ const BIG_WINS=[
 ];
 
 const RED_FLAGS=[
-  {project:"5th Coronado", issue:"Send COs to Jorge today — ready for weeks, no more delays",        owner:"Eitan",  due:"TODAY"},
-  {project:"5th Coronado", issue:"Send dates to Liat + confirm Carl contract scope changes",         owner:"Eitan",  due:"TODAY"},
+  {project:"5th Coronado", issue:"Send dates to Liat + confirm Carl contract scope changes",         owner:"Diego",  due:"TODAY"},
   {project:"5th Coronado", issue:"City corrections received — wait on Sergio plans before new dates", owner:"Diego",  due:"This week"},
   {project:"920 Coronado", issue:"Angel wrong piece — return + reorder today, master bath at 95%",   owner:"Diego",  due:"TODAY"},
   {project:"920 Coronado", issue:"Flash finiquito — confirm deduction amount for TV frame work",     owner:"Eitan",  due:"TODAY"},
@@ -363,7 +362,7 @@ const WATCHLIST=[
 const MONTHLY=[
   "920 Coronado — Angel piece, Flash finiquito, cabinets, stone, close",
   "Udall — Finish coat, Pablo tile tomorrow, drywall done tomorrow",
-  "5th Coronado — COs Jorge, Liat dates, Carl contract, city corrections",
+  "5th Coronado — Liat dates, Carl contract, city corrections",
   "Via Mar Valle — Gas + water, copper pipe, stair wall plaster",
   "New Leads — Becker, 920 Country Club, Coronado, Mustang Ridge",
 ];
