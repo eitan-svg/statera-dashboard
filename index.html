@@ -167,10 +167,10 @@
   <!-- STATS -->
   <div class="stats-row" style="grid-template-columns:repeat(6,1fr)">
     <div class="stat-card">
-      <div class="stat-big" style="color:#22c55e">74</div>
+      <div class="stat-big" style="color:#22c55e">75</div>
       <div>
         <div class="stat-title">Projects Delivered</div>
-        <div class="stat-year" style="color:#22c55e">19 this year</div>
+        <div class="stat-year" style="color:#22c55e">20 this year</div>
         <div class="stat-sub">all time</div>
       </div>
     </div>
@@ -326,43 +326,45 @@ setInterval(()=>{
     })
     .catch(()=>{});
 }, 5 * 60 * 1000);
+
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"08/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-08-15", status:"active",  phase:"Inspections today, handrail active, stone + glass pending"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Carl SOW to Liat today, COs ready for Jorge"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Concrete curing, appliance delivery arrived"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"09/30", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-30", status:"active",  phase:"Inspection today, stucco done, grout + metal profiles"},
-  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Contract signed, Tony + Sons meeting Thu"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"08/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-08-15", status:"closing", phase:"Final passed, island outlet + payment pending"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Waiting on city corrected plans"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Limestone ready, glass railing options today"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Drywall passed, mud Saturday, bathrooms 98%"},
+  {name:"2790 Silver Oak Ct",        pm:"TBD",           start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Negotiating price with Tony today"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
   {name:"Levine Family — Flooring",  pm:"TBD",           start:"08/10", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"New flooring installation"},
 ];
 
 const BIG_WINS=[
-  "920 Coronado — Kitchen backsplash, all doors + hardware, millwork, LED lights done ✅",
-  "Via Mar Valle — Concrete curing, register covers approved, appliance delivery ✅",
-  "Udall — Stucco finish coat applied + satisfactory, grout starting today ✅",
-  "Silver Oak — Contract signed, start 07/29, Tony + Sons meeting Thursday ✅",
-  "5th Coronado — Carl SOW received, being sent to Liat today ✅",
+  "920 Coronado — FINAL INSPECTION PASSED. Owners can move in. Project CLOSED ✅",
+  "Udall — Drywall inspection passed, stucco perimeter complete, new kitchen contacts ✅",
+  "Via Mar Valle — Limestone ready to order, appliance delivery on site ✅",
+  "Silver Oak — Contract signed, negotiating with Tony today ✅",
+  "Daily Reporting — Morning + EOD accountability running consistently ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"Inspections today — confirm both results tonight",                  owner:"Diego",  due:"TONIGHT"},
-  {project:"5th Coronado", issue:"COs to Jorge — ready for weeks, send today",                       owner:"Eitan",  due:"TODAY"},
-  {project:"Udall St",     issue:"Inspection today — confirm result tonight",                         owner:"Diego",  due:"TONIGHT"},
-  {project:"Udall St",     issue:"Kitchen info urgent — all specs needed now",                        owner:"Eitan",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Final invoice — project complete, send payment request today",      owner:"Eitan",  due:"TODAY"},
+  {project:"Udall St",     issue:"Exterior step finish — decide material today before Saturday mud",  owner:"Diego",  due:"TODAY"},
+  {project:"Udall St",     issue:"Kitchen info still urgent — new contacts in hand, move today",      owner:"Diego",  due:"TODAY"},
+  {project:"Via Mar Valle",issue:"Limestone approve today + sink bring to site + glass railing review", owner:"Diego", due:"TODAY"},
+  {project:"5th Coronado", issue:"COs to Jorge — send today, independent of city plan corrections",  owner:"Diego",  due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",       note:"Handrail in process, family room fireplace + soap niche pending"},
-  {project:"Udall St",           note:"Carl perimeter cleanup — no payment until done"},
-  {project:"Silver Oak",         note:"Thursday meeting — define demo logistics with Tony + Sons"},
+  {project:"Udall St",     note:"David painter Monday, SDG&E Larry Tanzo follow up"},
+  {project:"Silver Oak",   note:"Diego needs target number before Tony negotiation"},
+  {project:"5th Coronado", note:"Carl SOW to Liat today — confirm she receives it"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Both inspections, Ring Camera, handrail, stone, glass, close",
-  "Udall — Inspection, grout, metal profiles, SDG&E, painter proposal, kitchen info",
-  "5th Coronado — COs to Jorge, Carl SOW to Liat, contract modification",
-  "Via Mar Valle — Concrete, appliances, next phase",
-  "Silver Oak — Demo logistics Thu, start 07/29",
+  "920 Coronado — Final invoice, HERS certificate, punch list for final certificate",
+  "Udall — Exterior finish decision, mud Saturday, kitchen info, painter Monday",
+  "Via Mar Valle — Limestone order, sink to site, glass railing options",
+  "5th Coronado — COs to Jorge, Carl SOW to Liat, wait on city plans",
+  "Silver Oak — Tony negotiation, demo logistics",
 ];
 
 
