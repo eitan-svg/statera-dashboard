@@ -167,15 +167,15 @@
   <!-- STATS -->
   <div class="stats-row" style="grid-template-columns:repeat(6,1fr)">
     <div class="stat-card">
-      <div class="stat-big" style="color:#22c55e">75</div>
+      <div class="stat-big" style="color:#22c55e">76</div>
       <div>
         <div class="stat-title">Projects Delivered</div>
-        <div class="stat-year" style="color:#22c55e">20 this year</div>
+        <div class="stat-year" style="color:#22c55e">21 this year</div>
         <div class="stat-sub">all time</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#60a5fa">5</div>
+      <div class="stat-big" style="color:#60a5fa">4</div>
       <div>
         <div class="stat-title">Active Job Sites</div>
         <div class="stat-sub">across San Diego</div>
@@ -327,19 +327,17 @@ setInterval(()=>{
     .catch(()=>{});
 }, 5 * 60 * 1000);
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"08/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-08-15", status:"closing", phase:"FINAL INSPECTION TODAY, EV charger pending"},
   {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Stamped plans this week, meeting Buen Dia"},
   {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Material delivered, stucco + stone pending"},
   {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Mudding active, tile started, exterior done"},
   {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Demo in process, budget formatting"},
-  {name:"Haya",                      pm:"Diego",         start:"—",     close:"08/14", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-14", status:"closing", phase:"Done tomorrow 08/14, confirm completion"},
-  {name:"Via Cangrejo",              pm:"Victor",        start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Walkthrough today, patio + concrete budget"},
+  {name:"Levine Family — Flooring",  pm:"Diego",         start:"—",     close:"08/14", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-14", status:"closing", phase:"Done tomorrow 08/14, confirm completion"},
+  {name:"Via Cangrejo",              pm:"Victor",        start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Proposal needed — patio + concrete"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
-  {name:"Levine Family — Flooring",  pm:"TBD",           start:"08/10", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"New flooring installation"},
 ];
 
 const BIG_WINS=[
-  "920 Coronado — FINAL INSPECTION TODAY — project closing ✅",
+  "920 Coronado — FINAL INSPECTION PASSED. Project complete, collecting payment ✅",
   "Udall — Exterior painting done, kitchen layouts complete, tile started ✅",
   "Udall — Floor paid + delivery Wed, canceleria confirmed ✅",
   "Via Mar Valle — Material delivered, work continuing ✅",
@@ -347,25 +345,24 @@ const BIG_WINS=[
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"Final inspection today — confirm result tonight, invoice + HERS out immediately", owner:"Eitan", due:"TONIGHT"},
   {project:"5th Coronado", issue:"Carl SOW to Liat today + COs to Jorge + Carl contract before plans arrive",      owner:"Diego", due:"TODAY"},
   {project:"Udall St",     issue:"GDF kitchen pricing this week + exterior step finish decision today",            owner:"Diego", due:"TODAY"},
   {project:"Via Mar Valle",issue:"HardieBacker + plywood must be in place before stone can go in",                owner:"Diego", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"920 Coronado",  note:"EV charger — who and when, schedule today"},
-  {project:"Udall St",      note:"SDG&E 5-7 day window, patches after mudding"},
-  {project:"Haya",          note:"Confirm completion tomorrow 08/14"},
-  {project:"Via Cangrejo",  note:"Get scope + numbers from today's walkthrough"},
+  {project:"920 Coronado",   note:"Final inspection passed — collect payment + send HERS + EV charger"},
+  {project:"Udall St",       note:"SDG&E 5-7 day window, patches after mudding"},
+  {project:"Levine Family",  note:"Confirm completion 08/14"},
+  {project:"Via Cangrejo",   note:"Send proposal — patio + concrete scope"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — Final inspection tonight, invoice + HERS, EV charger",
+  "920 Coronado — Collect payment, HERS cert, EV charger",
   "Udall — GDF pricing, step finish, tile Mon-Wed, floor Wed",
   "5th Coronado — Carl SOW + COs + contract, stamped plans this week",
   "Via Mar Valle — HardieBacker, stucco, stone, wall caps",
-  "Haya — Confirm done 08/14",
+  "Via Cangrejo — Send proposal this week",
 ];
 
 
