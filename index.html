@@ -326,45 +326,49 @@ setInterval(()=>{
     })
     .catch(()=>{});
 }, 5 * 60 * 1000);
-
 const PROJECTS=[
-  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"08/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-08-15", status:"closing", phase:"Larry + Mitch today, HERS pending, garage paint"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"active",  phase:"On site verifying plans, stamped plans Friday"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Limestone today, railing fab, appliances received"},
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"2nd drywall layer, kitchen layouts 4/5 done"},
-  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Demo in process, Angel walkthrough pending"},
+  {name:"920 Coronado Ave",          pm:"Ed + Diego",    start:"12/01", close:"08/15", originalClose:"05/31", originalCloseDate:"2026-05-31", closeDate:"2026-08-15", status:"closing", phase:"FINAL INSPECTION TODAY, EV charger pending"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Stamped plans this week, meeting Buen Dia"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"08/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-15", status:"active",  phase:"Material delivered, stucco + stone pending"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Mudding active, tile started, exterior done"},
+  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Demo in process, budget formatting"},
+  {name:"Haya",                      pm:"Diego",         start:"—",     close:"08/14", originalClose:null,    originalCloseDate:null,         closeDate:"2026-08-14", status:"closing", phase:"Done tomorrow 08/14, confirm completion"},
+  {name:"Via Cangrejo",              pm:"Victor",        start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Walkthrough today, patio + concrete budget"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan",         start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Waiting on Eduardo"},
   {name:"Levine Family — Flooring",  pm:"TBD",           start:"08/10", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"New flooring installation"},
 ];
 
 const BIG_WINS=[
-  "920 Coronado — FINAL INSPECTION PASSED. Owners can move in ✅",
-  "Via Mar Valle — Limestone purchased, appliances received, railing in fab ✅",
-  "5th Coronado — On site verifying plans, stamped set arriving Friday ✅",
-  "Udall — David proposal received $4K, kitchen layouts 4/5 done ✅",
-  "Silver Oak — Demo in process ✅",
+  "920 Coronado — FINAL INSPECTION TODAY — project closing ✅",
+  "Udall — Exterior painting done, kitchen layouts complete, tile started ✅",
+  "Udall — Floor paid + delivery Wed, canceleria confirmed ✅",
+  "Via Mar Valle — Material delivered, work continuing ✅",
+  "Silver Oak — Demo in process, fans removed ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"920 Coronado", issue:"HERS cert call Efren today · garage paint · final invoice ready",  owner:"Eitan",  due:"TODAY"},
-  {project:"Udall St",     issue:"David $4K approve today · SDG&E respond · step finish decision",   owner:"Diego",  due:"TODAY"},
-  {project:"5th Coronado", issue:"Carl contract before Friday · COs to Jorge today",                 owner:"Diego",  due:"TODAY"},
-  {project:"Silver Oak",   issue:"Angel walkthrough — call directly today, 2 days no response",      owner:"Diego",  due:"TODAY"},
+  {project:"920 Coronado", issue:"Final inspection today — confirm result tonight, invoice + HERS out immediately", owner:"Eitan", due:"TONIGHT"},
+  {project:"5th Coronado", issue:"Carl SOW to Liat today + COs to Jorge + Carl contract before plans arrive",      owner:"Diego", due:"TODAY"},
+  {project:"Udall St",     issue:"GDF kitchen pricing this week + exterior step finish decision today",            owner:"Diego", due:"TODAY"},
+  {project:"Via Mar Valle",issue:"HardieBacker + plywood must be in place before stone can go in",                owner:"Diego", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"Udall St",           note:"Bathroom floor tile still needs to get to site"},
-  {project:"Via Mar Valle Patio",note:"HardieBacker + plywood needed before limestone placed"},
-  {project:"5th Coronado",       note:"Carl SOW to Liat today, inspection after Friday"},
+  {project:"920 Coronado",  note:"EV charger — who and when, schedule today"},
+  {project:"Udall St",      note:"SDG&E 5-7 day window, patches after mudding"},
+  {project:"Haya",          note:"Confirm completion tomorrow 08/14"},
+  {project:"Via Cangrejo",  note:"Get scope + numbers from today's walkthrough"},
 ];
 
 const MONTHLY=[
-  "920 Coronado — HERS cert, garage paint, final invoice",
-  "Udall — Step finish, David approval, kitchen package, SDG&E",
-  "Via Mar Valle — HardieBacker, limestone, stone base, wall caps",
-  "5th Coronado — Stamped plans Fri, Carl contract, COs Jorge",
-  "Silver Oak — Angel walkthrough, demo progress",
+  "920 Coronado — Final inspection tonight, invoice + HERS, EV charger",
+  "Udall — GDF pricing, step finish, tile Mon-Wed, floor Wed",
+  "5th Coronado — Carl SOW + COs + contract, stamped plans this week",
+  "Via Mar Valle — HardieBacker, stucco, stone, wall caps",
+  "Haya — Confirm done 08/14",
 ];
+
+
 
 
 
@@ -495,4 +499,3 @@ document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
 </script>
 </body>
 </html>
-<!-- redeploy-trigger 2026-08-06T17:50 -->
