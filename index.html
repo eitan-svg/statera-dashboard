@@ -325,47 +325,46 @@ setInterval(()=>{
       }
     })
     .catch(()=>{});
-}, 5 * 60 * 1000);
 const PROJECTS=[
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Painting active, canceleria in fab, kitchen order today"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Plans in hand, framer holdown meeting not scheduled"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"09/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-15", status:"active",  phase:"Stone active, countertop install Sept 10"},
-  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Tile walkthrough today, ceiling design blocking framing"},
-  {name:"920 — Garage Bedroom",      pm:"Diego",         start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Design done, estimate from Diego today"},
-  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"active",  phase:"Trailer on site, demo debris removal, scope TBD"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Kitchens ready for pickup, painting done, floors this week"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Foundation inspection today — unlocks concrete + framing"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"09/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-15", status:"active",  phase:"Stone active, bar lights installing, countertop Sept 10"},
+  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Electrical approved, tile quotes in, ceiling blocking framing"},
+  {name:"920 — Garage Bedroom",      pm:"Diego",         start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Numbers sent Friday, pending your approval"},
+  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"active",  phase:"Scope confirmation pending — ongoing or one-time"},
   {name:"Via Cangrejo",              pm:"Victor",        start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Proposal sent to David"},
   {name:"5802 Sagebrush — La Jolla", pm:"Eitan + Victor",start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Victor quoting pool, Diego measuring windows"},
 ];
 
 const BIG_WINS=[
   "920 Coronado — Final inspection passed, owners moved in ✅",
+  "Udall — Kitchens approved + ready for pickup, painting complete, doors approved ✅",
+  "Via Mar Valle — Bar lights installing, countertop Sept 10 locked ✅",
+  "Silver Oak — Electrical approved, sprinkler quote received ✅",
   "Levine Family — Delivered and closed ✅",
-  "Udall — Kitchens approved, canceleria deposit paid, fabrication underway ✅",
-  "Via Mar Valle — Stone templates done, countertop install Sept 10 ✅",
-  "Silver Oak — Phase 1 demo complete, closet design sent to Nico ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"Udall St",     issue:"Kitchen order today (Scott approved) + floor CO + GDF turnaround date", owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"Exterior step finish — months overdue, decide today",                   owner:"Eitan", due:"TODAY"},
-  {project:"5th Coronado", issue:"Framer holdown meeting + COs to Jorge — both today",                   owner:"Diego", due:"TODAY"},
-  {project:"Silver Oak",   issue:"Tony tile number from today's walkthrough + Natalia ceiling date",     owner:"Diego", due:"TODAY"},
-  {project:"920 Coronado", issue:"Final payment still pending — follow up today",                        owner:"Eitan", due:"TODAY"},
+  {project:"Udall St",     issue:"Kitchen pickup today + floor CO for Scott + step finish decide today", owner:"Diego", due:"TODAY"},
+  {project:"Udall St",     issue:"SDG&E — escalate to supervisor today, no more messages",               owner:"Diego", due:"TODAY"},
+  {project:"5th Coronado", issue:"Foundation inspection tonight — confirm result + COs to Jorge today",  owner:"Diego", due:"TONIGHT"},
+  {project:"Silver Oak",   issue:"Natalia ceiling — firm delivery date today, framing fully blocked",    owner:"Eitan", due:"TODAY"},
+  {project:"920 Coronado", issue:"Garage bedroom — approve or push back today + final payment follow up", owner:"Eitan", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"Udall St",           note:"SDG&E — escalate to supervisor today if no response"},
-  {project:"Via Mar Valle Patio",note:"Confirm crew + materials locked for Sept 10"},
-  {project:"Silver Oak",         note:"Nico sprinkler quote still waiting — call today"},
+  {project:"Via Mar Valle Patio",note:"Luis Miguel railing — get fabrication timeline, Sept 10 is close"},
+  {project:"Silver Oak",         note:"Victor tile quote pending, samples to Bernardo today"},
+  {project:"5th Coronado",       note:"Jesus lumber takeoff — confirm received + turnaround time"},
   {project:"La Jolla",           note:"Confirm scope — ongoing project or one-time cleanup"},
 ];
 
 const MONTHLY=[
-  "Udall — Kitchen order, floor CO, GDF quotes, step finish, painting",
-  "5th Coronado — Holdown meeting, COs Jorge, framer decision, concrete",
-  "Via Mar Valle — Stone, countertop Sept 10, lighting, bar",
-  "Silver Oak — Tony tile, Natalia ceiling, sprinkler, framing",
-  "920 Garage Bedroom — Diego estimate, prepare proposal",
+  "Udall — Kitchen pickup today, floor CO, step finish, SDG&E escalate",
+  "5th Coronado — Foundation inspection tonight, COs Jorge, framer decision",
+  "Via Mar Valle — Railing timeline, stone, countertop Sept 10",
+  "Silver Oak — Natalia ceiling today, Victor tile, framing coordination",
+  "920 Garage — Approve numbers today, final payment 920 follow up",
 ];
 
 
