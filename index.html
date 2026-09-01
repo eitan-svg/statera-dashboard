@@ -81,7 +81,7 @@
   thead th { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #475569; font-weight: 600; padding-bottom: 12px; text-align: left; }
   thead th.c { text-align: center; }
   tbody tr { border-top: 1px solid rgba(255,255,255,0.06); }
-  tbody td { padding: 11px 0; }
+  tbody td { padding: 7px 0; }
   tbody td.c { text-align: center; }
   .proj-name { display: flex; align-items: center; font-weight: 700; font-size: 16px; color: #f1f5f9; }
   .sdot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 12px; flex-shrink: 0; }
@@ -353,9 +353,15 @@ const PROJECTS=[
 ];
 
 const PIPELINE=[
-  {name:"920 — Garage Bedroom", pm:"Eitan / Diego",  description:"Garage conversion to bedroom + bath",  status:"Proposal Pending", value:"TBD",   confidence:"Hot",  winPct:80},
-  {name:"Via Cangrejo",         pm:"Eitan / Victor", description:"Patio remodel + concrete work",        status:"Proposal Sent",    value:"TBD",   confidence:"Warm", winPct:50},
-  {name:"5802 Sagebrush",       pm:"Eitan / Victor", description:"Pool quote + window scope, La Jolla",  status:"Qualifying",       value:"$270K+", confidence:"Warm", winPct:35},
+  {name:"Chabad Coronado",     pm:"Eitan",         description:"Full Renovation",       status:"Pending Scope Approval", value:"$250K–$400K", confidence:"Hot",  winPct:65},
+  {name:"Jaime Presidio",      pm:"Eitan",         description:"Apartment Renovation",  status:"Proposal Out",           value:"$150,000",    confidence:"Hot",  winPct:75},
+  {name:"920 Garage Room",     pm:"Eitan / Diego", description:"Room Addition",          status:"Proposal Sent",          value:"$12,500",     confidence:"Hot",  winPct:80},
+  {name:"La Jolla Office",     pm:"Eitan",         description:"Office Remodel",         status:"Proposal Sent",          value:"$20,000",     confidence:"Hot",  winPct:70},
+  {name:"5802 Sagebrush",      pm:"Eitan / Victor",description:"Windows",                status:"Proposal Stage",         value:"$25,000",     confidence:"Warm", winPct:50},
+  {name:"5802 Sagebrush",      pm:"Eitan / Victor",description:"Patio Remodel",          status:"Proposal Stage",         value:"$140,000",    confidence:"Warm", winPct:50},
+  {name:"Mustang Ridge",       pm:"Eitan",         description:"Windows and Doors",      status:"Proposal Stage",         value:"$70,000",     confidence:"Warm", winPct:45},
+  {name:"Via Cangrejo",        pm:"Eitan / Victor",description:"Patio Remodel",          status:"Proposal Stage",         value:"$120,000",    confidence:"Warm", winPct:40},
+  {name:"Eric Clad",           pm:"Eitan",         description:"New Warehouse",          status:"Early Stage",            value:"TBD",         confidence:"Cold", winPct:20},
 ];
 
 const BIG_WINS=[
