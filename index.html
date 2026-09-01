@@ -105,13 +105,13 @@
 
   /* THIS MONTH */
   .priority-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 12px 16px; border-radius: 9px; margin-bottom: 10px;
-    font-size: 15px; color: #cbd5e1; line-height: 1.4;
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 10px; border-radius: 7px; margin-bottom: 5px;
+    font-size: 13px; color: #cbd5e1; line-height: 1.3;
     background: rgba(255,255,255,0.03);
   }
   .priority-item:last-child { margin-bottom: 0; }
-  .priority-arrow { font-size: 20px; flex-shrink: 0; color: #a78bfa; }
+  .priority-arrow { font-size: 15px; flex-shrink: 0; color: #a78bfa; }
 
   /* RIGHT */
   .right-col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
@@ -185,10 +185,10 @@
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#818cf8">3</div>
+      <div class="stat-big" style="color:#818cf8" id="hot-leads-count">1</div>
       <div>
-        <div class="stat-title">In Pipeline</div>
-        <div class="stat-sub">pre-construction</div>
+        <div class="stat-title">Hot Leads</div>
+        <div class="stat-sub">in pipeline</div>
       </div>
     </div>
     <div class="stat-card">
@@ -252,8 +252,8 @@
       </div>
 
       <!-- BOTTOM ROW: JOB STATUS + THIS MONTH -->
-      <div style="display:grid;grid-template-columns:240px 1fr;gap:10px;flex:1;min-height:0;overflow:hidden">
-        <div class="card donut-card" style="overflow:hidden">
+      <div style="display:grid;grid-template-columns:210px 1fr;gap:10px;flex:1;min-height:0;overflow:hidden">
+        <div class="card donut-card" style="overflow:hidden;align-self:start">
           <div class="section-label">Job Status</div>
           <div class="donut-body">
             <svg id="donut-svg" width="90" height="90" style="flex-shrink:0"></svg>
@@ -505,6 +505,9 @@ document.getElementById('red-flags').innerHTML=RED_FLAGS.map((f,i)=>
 document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
   `<div class="win-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>${w}</div>`
 ).join('');
+
+// ── HOT LEADS COUNT ──────────────────────────────────────────
+document.getElementById('hot-leads-count').textContent=PIPELINE.filter(p=>p.confidence==='Hot').length||PIPELINE.length;
 
 // ── PIPELINE TABLE ───────────────────────────────────────────
 const confColor={Hot:"#ef4444",Warm:"#f59e0b",Cold:"#60a5fa"};
