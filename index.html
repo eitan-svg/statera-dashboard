@@ -252,15 +252,15 @@
       </div>
 
       <!-- BOTTOM ROW: JOB STATUS + THIS MONTH -->
-      <div style="display:grid;grid-template-columns:280px 1fr;gap:10px;flex:1;min-height:0">
-        <div class="card donut-card">
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:10px;flex:1;min-height:0;overflow:hidden">
+        <div class="card donut-card" style="overflow:hidden">
           <div class="section-label">Job Status</div>
           <div class="donut-body">
-            <svg id="donut-svg" width="120" height="120" style="flex-shrink:0"></svg>
+            <svg id="donut-svg" width="90" height="90" style="flex-shrink:0"></svg>
             <div id="donut-legend" style="flex:1;min-width:0"></div>
           </div>
         </div>
-        <div class="card">
+        <div class="card" style="overflow:hidden">
           <div class="section-label" style="color:#a78bfa">
             <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:10px;vertical-align:middle"></span>
             This Month
@@ -474,7 +474,7 @@ const dd=[
   {label:"Pre-Con", value:counts["pre-con"],   color:"#60a5fa"},
 ].filter(d=>d.value>0);
 const tot=dd.reduce((s,d)=>s+d.value,0);
-const cx=75,cy=75,r=56,sw=18;
+const cx=45,cy=45,r=32,sw=11;
 let cum=-Math.PI/2,paths='';
 dd.forEach(d=>{
   const a=(d.value/tot)*2*Math.PI;
@@ -483,8 +483,8 @@ dd.forEach(d=>{
   const x2=cx+r*Math.cos(cum),y2=cy+r*Math.sin(cum);
   paths+=`<path d="M ${x1} ${y1} A ${r} ${r} 0 ${a>Math.PI?1:0} 1 ${x2} ${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="butt" opacity="0.92"/>`;
 });
-paths+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" fill="#f1f5f9" font-size="28" font-weight="700" font-family="'DM Mono',monospace">${tot}</text>`;
-paths+=`<text x="${cx}" y="${cy+18}" text-anchor="middle" fill="#475569" font-size="12" font-family="'DM Sans',sans-serif" letter-spacing="1">JOBS</text>`;
+paths+=`<text x="${cx}" y="${cy-3}" text-anchor="middle" fill="#f1f5f9" font-size="18" font-weight="700" font-family="'DM Mono',monospace">${tot}</text>`;
+paths+=`<text x="${cx}" y="${cy+11}" text-anchor="middle" fill="#475569" font-size="9" font-family="'DM Sans',sans-serif" letter-spacing="1">JOBS</text>`;
 document.getElementById('donut-svg').innerHTML=paths;
 document.getElementById('donut-legend').innerHTML=dd.map(d=>
   `<div class="legend-item">
