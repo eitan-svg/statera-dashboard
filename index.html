@@ -178,7 +178,7 @@
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-big" style="color:#60a5fa">3</div>
+      <div class="stat-big" style="color:#60a5fa" id="active-sites-count">—</div>
       <div>
         <div class="stat-title">Active Job Sites</div>
         <div class="stat-sub">across San Diego</div>
@@ -506,7 +506,8 @@ document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
   `<div class="win-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>${w}</div>`
 ).join('');
 
-// ── HOT LEADS COUNT ──────────────────────────────────────────
+// ── AUTO STATS ───────────────────────────────────────────────
+document.getElementById('active-sites-count').textContent=PROJECTS.filter(p=>p.status==='active'||p.status==='blocked'||p.status==='closing').length;
 document.getElementById('hot-leads-count').textContent=PIPELINE.filter(p=>p.confidence==='Hot').length||PIPELINE.length;
 
 // ── PIPELINE TABLE ───────────────────────────────────────────
