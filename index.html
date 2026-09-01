@@ -222,7 +222,7 @@
   <div class="body">
     <div class="left-col">
 
-      <!-- PROJECTS -->
+      <!-- ACTIVE PROJECTS -->
       <div class="card" style="flex:0 0 auto">
         <div class="section-label">Active Projects</div>
         <table>
@@ -234,18 +234,39 @@
         </table>
       </div>
 
-      <!-- DONUT + THIS MONTH -->
-      <div class="bottom-left">
+      <!-- PIPELINE TABLE -->
+      <div class="card" style="flex:0 0 auto">
+        <div class="section-label" style="color:#818cf8">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
+          Pipeline
+        </div>
+        <table>
+          <thead><tr>
+            <th>Project</th><th>PM</th><th>Status</th><th class="c">Confidence</th>
+          </tr></thead>
+          <tbody id="pipeline-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- BOTTOM ROW: DONUT + PIPELINE SUMMARY + THIS MONTH -->
+      <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:10px;flex:1;min-height:0">
         <div class="card donut-card">
-          <div class="section-label">Job Status</div>
+          <div class="section-label" style="font-size:11px">Job Status</div>
           <div class="donut-body">
-            <svg id="donut-svg" width="150" height="150" style="flex-shrink:0"></svg>
+            <svg id="donut-svg" width="110" height="110" style="flex-shrink:0"></svg>
             <div id="donut-legend" style="flex:1;min-width:0"></div>
           </div>
         </div>
-        <div class="card">
-          <div class="section-label" style="color:#a78bfa">
-            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:10px;vertical-align:middle"></span>
+        <div class="card" style="overflow:hidden">
+          <div class="section-label" style="color:#818cf8;font-size:11px">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#818cf8;margin-right:8px;vertical-align:middle"></span>
+            Pipeline Summary
+          </div>
+          <div id="pipeline-summary"></div>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <div class="section-label" style="color:#a78bfa;font-size:11px">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#a78bfa;margin-right:8px;vertical-align:middle"></span>
             This Month
           </div>
           <div id="monthly-priorities"></div>
@@ -328,14 +349,17 @@ setInterval(()=>{
 }, 5 * 60 * 1000);
 
 const PROJECTS=[
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-10-15", status:"active",  phase:"Kitchens ready for pickup, painting done, floors this week"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null,    originalCloseDate:null,         closeDate:"2026-12-31", status:"blocked", phase:"Foundation inspection today — unlocks concrete + framing"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"09/15", originalClose:null,    originalCloseDate:null,         closeDate:"2026-09-15", status:"active",  phase:"Stone active, bar lights installing, countertop Sept 10"},
-  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null,    originalCloseDate:null,         closeDate:"2027-01-29", status:"active",  phase:"Electrical approved, tile quotes in, ceiling blocking framing"},
-  {name:"920 — Garage Bedroom",      pm:"Diego",         start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Numbers sent Friday, pending your approval"},
-  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"active",  phase:"Scope confirmation pending — ongoing or one-time"},
-  {name:"Via Cangrejo",              pm:"Victor",        start:"TBD",   close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Proposal sent to David"},
-  {name:"5802 Sagebrush — La Jolla", pm:"Eitan + Victor",start:"—",     close:"—",     originalClose:null,    originalCloseDate:null,         closeDate:null,         status:"pre-con", phase:"Victor quoting pool, Diego measuring windows"},
+  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Painting done, kitchens pickup, floors this week"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null, originalCloseDate:null, closeDate:"2026-12-31", status:"blocked", phase:"Foundation inspection tonight, framer holdown pending"},
+  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"09/15", originalClose:null, originalCloseDate:null, closeDate:"2026-09-15", status:"active",  phase:"Stone active, bar lights, countertop Sept 10"},
+  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Electrical approved, tile quotes, ceiling blocking framing"},
+  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null, originalCloseDate:null, closeDate:null,         status:"active",  phase:"Demo debris removal, scope TBD"},
+];
+
+const PIPELINE=[
+  {name:"920 — Garage Bedroom", pm:"Diego",         status:"Proposal Pending",  confidence:"Hot"},
+  {name:"Via Cangrejo",         pm:"Victor",        status:"Proposal Sent",     confidence:"Warm"},
+  {name:"5802 Sagebrush",       pm:"Eitan + Victor",status:"Qualifying",        confidence:"Warm"},
 ];
 
 const BIG_WINS=[
@@ -486,6 +510,24 @@ document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
   `<div class="win-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>${w}</div>`
 ).join('');
 
+// ── PIPELINE TABLE ───────────────────────────────────────────
+const confColor={Hot:"#ef4444",Warm:"#f59e0b",Cold:"#60a5fa"};
+const confBg={Hot:"rgba(239,68,68,0.12)",Warm:"rgba(245,158,11,0.12)",Cold:"rgba(96,165,250,0.12)"};
+document.getElementById('pipeline-tbody').innerHTML=PIPELINE.map(p=>`
+  <tr>
+    <td style="font-weight:600;color:#e2e8f0">${p.name}</td>
+    <td class="td-pm">${p.pm}</td>
+    <td style="color:#94a3b8;font-size:13px">${p.status}</td>
+    <td class="c"><span style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700">${p.confidence}</span></td>
+  </tr>`).join('');
+
+// ── PIPELINE SUMMARY ─────────────────────────────────────────
+document.getElementById('pipeline-summary').innerHTML=PIPELINE.map(p=>`
+  <div style="padding:5px 0;border-bottom:1px solid rgba(129,140,248,0.1);font-size:12px;color:#94a3b8;display:flex;justify-content:space-between;align-items:center">
+    <span style="color:#e2e8f0;font-weight:600">${p.name}</span>
+    <span style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700">${p.confidence}</span>
+  </div>`).join('');
+
 // ── WATCHLIST ────────────────────────────────────────────────
 document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
   `<div class="watch-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>
@@ -495,7 +537,7 @@ document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
 
 // ── THIS MONTH ───────────────────────────────────────────────
 document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
-  `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5)">
+  `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5);padding:5px 10px;margin-bottom:5px;font-size:12px">
     <span class="priority-arrow">›</span>${item}
   </div>`
 ).join('');
