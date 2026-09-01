@@ -131,6 +131,9 @@
   .win-item { padding-top: 6px; margin-top: 6px; border-top: 1px solid rgba(34,197,94,0.12); font-size: 12px; color: #86efac; line-height: 1.35; }
   .win-item:first-child { padding-top: 0; margin-top: 0; border-top: none; }
 
+  /* PIPELINE TABLE */
+  .pipe-badge { padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
   /* FOOTER */
   .footer { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 7px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
   .footer-left { font-size: 11px; color: #2d3748; letter-spacing: 1px; }
@@ -234,8 +237,8 @@
         </table>
       </div>
 
-      <!-- PIPELINE TABLE -->
-      <div class="card" style="flex:0 0 auto">
+      <!-- PIPELINE -->
+      <div class="card" style="flex:0 0 auto;border-color:rgba(129,140,248,0.25);background:rgba(129,140,248,0.04)">
         <div class="section-label" style="color:#818cf8">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
           Pipeline
@@ -248,25 +251,18 @@
         </table>
       </div>
 
-      <!-- BOTTOM ROW: DONUT + PIPELINE SUMMARY + THIS MONTH -->
-      <div style="display:grid;grid-template-columns:220px 1fr 1fr;gap:10px;flex:1;min-height:0">
+      <!-- BOTTOM ROW: JOB STATUS + THIS MONTH -->
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:10px;flex:1;min-height:0">
         <div class="card donut-card">
-          <div class="section-label" style="font-size:11px">Job Status</div>
+          <div class="section-label">Job Status</div>
           <div class="donut-body">
-            <svg id="donut-svg" width="110" height="110" style="flex-shrink:0"></svg>
+            <svg id="donut-svg" width="120" height="120" style="flex-shrink:0"></svg>
             <div id="donut-legend" style="flex:1;min-width:0"></div>
           </div>
         </div>
-        <div class="card" style="overflow:hidden">
-          <div class="section-label" style="color:#818cf8;font-size:11px">
-            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#818cf8;margin-right:8px;vertical-align:middle"></span>
-            Pipeline Summary
-          </div>
-          <div id="pipeline-summary"></div>
-        </div>
-        <div class="card" style="overflow:hidden">
-          <div class="section-label" style="color:#a78bfa;font-size:11px">
-            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#a78bfa;margin-right:8px;vertical-align:middle"></span>
+        <div class="card">
+          <div class="section-label" style="color:#a78bfa">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:10px;vertical-align:middle"></span>
             This Month
           </div>
           <div id="monthly-priorities"></div>
@@ -275,7 +271,7 @@
 
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT COL -->
     <div class="right-col">
       <div class="card red-card" style="flex:0 0 auto;">
         <div class="section-label" style="color:#ef4444">
@@ -515,18 +511,11 @@ const confColor={Hot:"#ef4444",Warm:"#f59e0b",Cold:"#60a5fa"};
 const confBg={Hot:"rgba(239,68,68,0.12)",Warm:"rgba(245,158,11,0.12)",Cold:"rgba(96,165,250,0.12)"};
 document.getElementById('pipeline-tbody').innerHTML=PIPELINE.map(p=>`
   <tr>
-    <td style="font-weight:600;color:#e2e8f0">${p.name}</td>
+    <td style="font-weight:600;color:#e2e8f0;font-size:15px">${p.name}</td>
     <td class="td-pm">${p.pm}</td>
-    <td style="color:#94a3b8;font-size:13px">${p.status}</td>
-    <td class="c"><span style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700">${p.confidence}</span></td>
+    <td style="color:#64748b;font-size:13px">${p.status}</td>
+    <td class="c"><span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]}">${p.confidence}</span></td>
   </tr>`).join('');
-
-// ── PIPELINE SUMMARY ─────────────────────────────────────────
-document.getElementById('pipeline-summary').innerHTML=PIPELINE.map(p=>`
-  <div style="padding:5px 0;border-bottom:1px solid rgba(129,140,248,0.1);font-size:12px;color:#94a3b8;display:flex;justify-content:space-between;align-items:center">
-    <span style="color:#e2e8f0;font-weight:600">${p.name}</span>
-    <span style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700">${p.confidence}</span>
-  </div>`).join('');
 
 // ── WATCHLIST ────────────────────────────────────────────────
 document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
@@ -537,7 +526,7 @@ document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
 
 // ── THIS MONTH ───────────────────────────────────────────────
 document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
-  `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5);padding:5px 10px;margin-bottom:5px;font-size:12px">
+  `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5)">
     <span class="priority-arrow">›</span>${item}
   </div>`
 ).join('');
