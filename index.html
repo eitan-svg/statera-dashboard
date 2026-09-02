@@ -243,28 +243,34 @@
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
           Pipeline
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:4px">
-          <div style="display:grid;grid-template-columns:130px 1fr 60px 55px 50px;gap:6px;padding:0 8px 4px;border-bottom:1px solid rgba(129,140,248,0.2)">
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase">Project</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase">Scope</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:right">Win%</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:right">Value</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:center">Hot</span>
-          </div>
-          <div style="display:grid;grid-template-columns:130px 1fr 60px 55px 50px;gap:6px;padding:0 8px 4px;border-bottom:1px solid rgba(129,140,248,0.2);border-left:1px solid rgba(129,140,248,0.15);margin-left:4px">
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase">Project</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase">Scope</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:right">Win%</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:right">Value</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;text-align:center">Hot</span>
-          </div>
-        </div>
-        <div id="pipeline-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px"></div>
+        <table style="width:100%;border-collapse:collapse">
+          <colgroup>
+            <col style="width:18%"><col style="width:15%"><col style="width:8%"><col style="width:8%"><col style="width:7%">
+            <col style="width:2%">
+            <col style="width:18%"><col style="width:15%"><col style="width:8%"><col style="width:8%"><col style="width:7%">
+          </colgroup>
+          <thead>
+            <tr style="border-bottom:1px solid rgba(129,140,248,0.2)">
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:left">Project</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:left">Scope</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:center">Win%</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:right">Value</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:center">Hot</th>
+              <td style="border-left:1px solid rgba(129,140,248,0.2)"></td>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px 8px;text-align:left">Project</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:left">Scope</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:center">Win%</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:right">Value</th>
+              <th style="font-size:10px;letter-spacing:1px;color:#475569;text-transform:uppercase;font-weight:600;padding:0 0 4px;text-align:center">Hot</th>
+            </tr>
+          </thead>
+          <tbody id="pipeline-tbody"></tbody>
+        </table>
       </div>
 
       <!-- BOTTOM ROW: JOB STATUS + THIS MONTH -->
       <div style="display:grid;grid-template-columns:210px 1fr;gap:10px;flex:1;min-height:0;overflow:hidden">
-        <div class="card donut-card" style="overflow:hidden;align-self:start">
+        <div class="card" style="overflow:hidden;align-self:start">
           <div class="section-label">Job Status</div>
           <div class="donut-body">
             <svg id="donut-svg" width="90" height="90" style="flex-shrink:0"></svg>
@@ -527,25 +533,37 @@ document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
 document.getElementById('active-sites-count').textContent=PROJECTS.filter(p=>p.status==='active'||p.status==='blocked'||p.status==='closing').length;
 document.getElementById('hot-leads-count').textContent=PIPELINE.filter(p=>p.confidence==='Hot').length||PIPELINE.length;
 
-// ── PIPELINE GRID ────────────────────────────────────────────
+// ── PIPELINE TABLE ───────────────────────────────────────────
 const confColor={Hot:"#ef4444",Warm:"#f59e0b",Cold:"#60a5fa"};
 const confBg={Hot:"rgba(239,68,68,0.12)",Warm:"rgba(245,158,11,0.12)",Cold:"rgba(96,165,250,0.12)"};
-document.getElementById('pipeline-grid').innerHTML=PIPELINE.map(p=>{
-  const pct=p.winPct||0;
-  const barColor=pct>=70?"#22c55e":pct>=40?"#f59e0b":"#60a5fa";
-  return `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(129,140,248,0.12);border-radius:6px;padding:5px 8px;display:flex;align-items:center;gap:6px">
-    <span style="font-weight:700;color:#e2e8f0;font-size:12px;flex:0 0 auto;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</span>
-    <span style="font-size:10px;color:#475569;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.description}</span>
-    <div style="display:flex;align-items:center;gap:3px;flex:0 0 auto">
-      <div style="width:36px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
-        <div style="width:${pct}%;height:100%;background:${barColor};border-radius:2px"></div>
-      </div>
-      <span style="font-size:10px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace">${pct}%</span>
-    </div>
-    <span style="font-size:11px;font-weight:700;color:#22c55e;font-family:'DM Mono',monospace;flex:0 0 auto">${p.value}</span>
-    <span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};font-size:9px;padding:1px 5px;flex:0 0 auto">${p.confidence}</span>
-  </div>`;
-}).join('');
+const pipeRows=[];
+for(let i=0;i<PIPELINE.length;i+=2){
+  const a=PIPELINE[i], b=PIPELINE[i+1];
+  const renderCell=(p)=>{
+    if(!p) return `<td colspan="5"></td>`;
+    const pct=p.winPct||0;
+    const bc=pct>=70?"#22c55e":pct>=40?"#f59e0b":"#60a5fa";
+    return `
+      <td style="font-weight:700;color:#e2e8f0;font-size:12px;padding:5px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0">${p.name}</td>
+      <td style="color:#64748b;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0">${p.description}</td>
+      <td style="text-align:center;padding:5px 4px">
+        <div style="display:flex;align-items:center;gap:3px">
+          <div style="width:32px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
+            <div style="width:${pct}%;height:100%;background:${bc};border-radius:2px"></div>
+          </div>
+          <span style="font-size:10px;font-weight:700;color:${bc};font-family:'DM Mono',monospace">${pct}%</span>
+        </div>
+      </td>
+      <td style="text-align:right;font-size:11px;font-weight:700;color:#22c55e;font-family:'DM Mono',monospace;white-space:nowrap;padding:5px 4px">${p.value}</td>
+      <td style="text-align:center;padding:5px 0"><span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};font-size:9px;padding:1px 5px">${p.confidence}</span></td>`;
+  };
+  pipeRows.push(`<tr style="border-top:1px solid rgba(255,255,255,0.06)">
+    ${renderCell(a)}
+    <td style="border-left:1px solid rgba(129,140,248,0.2);width:2%"></td>
+    ${b?renderCell(b).replace('padding:5px 0','padding:5px 0 5px 8px').replace('padding:5px 4px','padding:5px 4px'):'<td colspan="5"></td>'}
+  </tr>`);
+}
+document.getElementById('pipeline-tbody').innerHTML=pipeRows.join('');
 
 // ── WATCHLIST ────────────────────────────────────────────────
 document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
