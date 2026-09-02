@@ -341,53 +341,53 @@ setInterval(()=>{
 
 const PROJECTS=[
   {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Painting done, kitchens pickup, floors this week"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"12/31", originalClose:null, originalCloseDate:null, closeDate:"2026-12-31", status:"blocked", phase:"Foundation inspection tonight, framer holdown pending"},
+  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Foundation passed, framer next, plans in hand"},
   {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"09/15", originalClose:null, originalCloseDate:null, closeDate:"2026-09-15", status:"active",  phase:"Stone active, bar lights, countertop Sept 10"},
   {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Electrical approved, tile quotes, ceiling blocking framing"},
-  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null, originalCloseDate:null, closeDate:null,         status:"active",  phase:"Demo debris removal, scope TBD"},
+  {name:"920 Garage Room",           pm:"Diego",         start:"09/09", close:"09/23", originalClose:null, originalCloseDate:null, closeDate:"2026-09-23", status:"active",  phase:"Room addition — starting Sept 9"},
+  {name:"La Jolla",                  pm:"Pablo",         start:"08/26", close:"—",     originalClose:null, originalCloseDate:null, closeDate:null,         status:"closing", phase:"Work complete — payment pending"},
 ];
 
 const PIPELINE=[
-  {name:"Chabad Coronado",     pm:"Eitan",         description:"Full Renovation",       status:"Pending Scope Approval", value:"$250K–$400K", confidence:"Hot",  winPct:65},
-  {name:"Jaime Presidio",      pm:"Eitan",         description:"Apartment Renovation",  status:"Proposal Out",           value:"$150,000",    confidence:"Hot",  winPct:75},
-  {name:"920 Garage Room",     pm:"Eitan / Diego", description:"Room Addition",          status:"Proposal Sent",          value:"$12,500",     confidence:"Hot",  winPct:80},
-  {name:"La Jolla Office",     pm:"Eitan",         description:"Office Remodel",         status:"Proposal Sent",          value:"$20,000",     confidence:"Hot",  winPct:70},
-  {name:"5802 Sagebrush",      pm:"Eitan / Victor",description:"Windows",                status:"Proposal Stage",         value:"$25,000",     confidence:"Warm", winPct:50},
-  {name:"5802 Sagebrush",      pm:"Eitan / Victor",description:"Patio Remodel",          status:"Proposal Stage",         value:"$140,000",    confidence:"Warm", winPct:50},
-  {name:"Mustang Ridge",       pm:"Eitan",         description:"Windows and Doors",      status:"Proposal Stage",         value:"$70,000",     confidence:"Warm", winPct:45},
-  {name:"Via Cangrejo",        pm:"Eitan / Victor",description:"Patio Remodel",          status:"Proposal Stage",         value:"$120,000",    confidence:"Warm", winPct:40},
-  {name:"Eric Clad",           pm:"Eitan",         description:"New Warehouse",          status:"Early Stage",            value:"TBD",         confidence:"Cold", winPct:20},
+  {name:"Chabad Coronado",        pm:"Eitan",         description:"Full Renovation",    status:"Pending Scope",  value:"$250K–$400K", confidence:"Hot",  winPct:65},
+  {name:"Jaime Presidio",         pm:"Eitan",         description:"Apt Renovation",     status:"Proposal Out",   value:"$150K",       confidence:"Hot",  winPct:75},
+  {name:"La Jolla Office",        pm:"Eitan",         description:"Office Remodel",     status:"Proposal Sent",  value:"$20K",        confidence:"Hot",  winPct:70},
+  {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Windows",            status:"Proposal Stage", value:"$25K",        confidence:"Warm", winPct:50},
+  {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$140K",       confidence:"Warm", winPct:50},
+  {name:"Mustang Ridge",          pm:"Eitan",         description:"Windows + Doors",    status:"Proposal Stage", value:"$70K",        confidence:"Warm", winPct:45},
+  {name:"Via Cangrejo",           pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$120K",       confidence:"Warm", winPct:40},
+  {name:"1102 La Jolla Rancho",   pm:"Eitan",         description:"House Remodel",      status:"Early Stage",    value:"TBD",         confidence:"Warm", winPct:40},
+  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},
 ];
 
 const BIG_WINS=[
   "920 Coronado — Final inspection passed, owners moved in ✅",
-  "Udall — Kitchens approved + ready for pickup, painting complete, doors approved ✅",
-  "Via Mar Valle — Bar lights installing, countertop Sept 10 locked ✅",
+  "5th Coronado — Foundation inspection passed, project now active ✅",
+  "920 Garage Room — Contracted, starting Sept 9 ✅",
+  "Via Mar Valle — Stone active, countertop Sept 10 locked ✅",
   "Silver Oak — Electrical approved, sprinkler quote received ✅",
-  "Levine Family — Delivered and closed ✅",
 ];
 
 const RED_FLAGS=[
-  {project:"Udall St",     issue:"Kitchen pickup today + floor CO for Scott + step finish decide today", owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"SDG&E — escalate to supervisor today, no more messages",               owner:"Diego", due:"TODAY"},
-  {project:"5th Coronado", issue:"Foundation inspection tonight — confirm result + COs to Jorge today",  owner:"Diego", due:"TONIGHT"},
-  {project:"Silver Oak",   issue:"Natalia ceiling — firm delivery date today, framing fully blocked",    owner:"Eitan", due:"TODAY"},
-  {project:"920 Coronado", issue:"Garage bedroom — approve or push back today + final payment follow up", owner:"Eitan", due:"TODAY"},
+  {project:"Udall St",     issue:"Kitchen pickup + floor CO + step finish decision",               owner:"Diego", due:"TODAY"},
+  {project:"Udall St",     issue:"SDG&E — escalate to supervisor, no more waiting",               owner:"Diego", due:"TODAY"},
+  {project:"Silver Oak",   issue:"Natalia ceiling firm date — framing fully blocked without it",  owner:"Eitan", due:"TODAY"},
+  {project:"920 Coronado", issue:"Final payment still pending — follow up today",                 owner:"Eitan", due:"TODAY"},
 ];
 
 const WATCHLIST=[
-  {project:"Via Mar Valle Patio",note:"Luis Miguel railing — get fabrication timeline, Sept 10 is close"},
-  {project:"Silver Oak",         note:"Victor tile quote pending, samples to Bernardo today"},
-  {project:"5th Coronado",       note:"Jesus lumber takeoff — confirm received + turnaround time"},
-  {project:"La Jolla",           note:"Confirm scope — ongoing project or one-time cleanup"},
+  {project:"La Jolla",           note:"Work complete — Daniela collect payment this week"},
+  {project:"Via Mar Valle Patio",note:"Railing fabrication timeline — Sept 10 is close"},
+  {project:"Silver Oak",         note:"Victor tile quote pending, Natalia ceiling blocking framing"},
+  {project:"5th Coronado",       note:"Framer meeting + COs to Jorge this week"},
 ];
 
 const MONTHLY=[
-  "Udall — Kitchen pickup today, floor CO, step finish, SDG&E escalate",
-  "5th Coronado — Foundation inspection tonight, COs Jorge, framer decision",
-  "Via Mar Valle — Railing timeline, stone, countertop Sept 10",
-  "Silver Oak — Natalia ceiling today, Victor tile, framing coordination",
-  "920 Garage — Approve numbers today, final payment 920 follow up",
+  "La Jolla — Daniela collect final payment this week",
+  "Udall — Kitchen pickup, floor CO, step finish, SDG&E",
+  "5th Coronado — Framer meeting, COs Jorge, lumber takeoff",
+  "Via Mar Valle — Countertop Sept 10, railing timeline",
+  "Silver Oak — Natalia ceiling, tile, framing coordination",
 ];
 
 
@@ -517,23 +517,21 @@ const confBg={Hot:"rgba(239,68,68,0.12)",Warm:"rgba(245,158,11,0.12)",Cold:"rgba
 document.getElementById('pipeline-grid').innerHTML=PIPELINE.map(p=>{
   const pct=p.winPct||0;
   const barColor=pct>=70?"#22c55e":pct>=40?"#f59e0b":"#60a5fa";
-  return `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(129,140,248,0.12);border-radius:10px;padding:10px 14px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-      <span style="font-weight:700;color:#e2e8f0;font-size:14px">${p.name}</span>
-      <span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]}">${p.confidence}</span>
+  return `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(129,140,248,0.12);border-radius:8px;padding:7px 10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+      <span style="font-weight:700;color:#e2e8f0;font-size:13px">${p.name}</span>
+      <span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};font-size:10px;padding:1px 7px">${p.confidence}</span>
     </div>
-    <div style="font-size:12px;color:#64748b;margin-bottom:6px">${p.description} · ${p.pm}</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:6px">
-          <div style="flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden">
-            <div style="width:${pct}%;height:100%;background:${barColor};border-radius:3px"></div>
-          </div>
-          <span style="font-size:11px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace;white-space:nowrap">${pct}%</span>
+    <div style="font-size:11px;color:#64748b;margin-bottom:5px">${p.description} · ${p.pm}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+      <div style="flex:1;display:flex;align-items:center;gap:5px">
+        <div style="flex:1;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${barColor};border-radius:2px"></div>
         </div>
+        <span style="font-size:10px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace">${pct}%</span>
       </div>
-      <span style="font-size:12px;color:#94a3b8;white-space:nowrap">${p.status}</span>
-      <span style="font-size:13px;font-weight:700;color:#22c55e;font-family:'DM Mono',monospace;white-space:nowrap">${p.value}</span>
+      <span style="font-size:11px;color:#94a3b8;white-space:nowrap">${p.status}</span>
+      <span style="font-size:12px;font-weight:700;color:#22c55e;font-family:'DM Mono',monospace;white-space:nowrap">${p.value}</span>
     </div>
   </div>`;
 }).join('');
