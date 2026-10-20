@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-tv-release="2026-10-20-combined-v1">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1920"/>
@@ -159,7 +159,7 @@
         </div>
       </div>
       <div class="divider"></div>
-      <div class="live-badge"><span class="live-dot"></span>Live</div>
+      <div class="live-badge"><span class="live-dot"></span>TV</div>
     </div>
     <div class="clock-block">
       <div class="clock-time"><span id="ch"></span><span class="clock-colon" id="cc">:</span><span id="cm"></span><span class="clock-sec" id="cs"></span></div>
@@ -227,7 +227,7 @@
 
       <!-- ACTIVE PROJECTS -->
       <div class="card" style="flex:0 0 auto">
-        <div class="section-label">Active Projects</div>
+        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">Operations as of Oct 20, 2026 · Completion dates awaiting confirmation</span></div>
         <table>
           <thead><tr>
             <th>Project</th><th>PM</th><th>Phase</th>
@@ -241,7 +241,7 @@
       <div class="card" style="flex:0 0 auto;border-color:rgba(129,140,248,0.25);background:rgba(129,140,248,0.04)">
         <div class="section-label" style="color:#818cf8">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
-          Pipeline
+          Pipeline <span style="float:right;font-size:10px;letter-spacing:0;text-transform:none;color:#94a3b8">Existing 8 retained · 2 new Oct 20 · New values are estimates, not contracts</span>
         </div>
         <table style="width:100%;border-collapse:collapse">
           <colgroup>
@@ -293,14 +293,14 @@
       <div class="card red-card" style="flex:0 0 auto;">
         <div class="section-label" style="color:#ef4444">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:10px;box-shadow:0 0 8px #ef4444;vertical-align:middle"></span>
-          Red Flag Zone
+          Dependencies
         </div>
         <div id="red-flags"></div>
       </div>
       <div class="card" style="border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.05);flex:0 0 auto;">
         <div class="section-label" style="color:#22c55e">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:10px;box-shadow:0 0 8px #22c55e;vertical-align:middle"></span>
-          Big Wins — Sep/Oct 2026
+          Big Wins — Oct 20 Update
         </div>
         <div id="big-wins"></div>
       </div>
@@ -317,11 +317,19 @@
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-left">STATERA DESIGN &amp; BUILD · CSLB #1140174 · staterasd.com</div>
-    <div class="footer-right">EDIT FROM LAPTOP · DO NOT TOUCH TV</div>
+    <div class="footer-right">EXISTING PIPELINE &amp; KPI FIGURES CARRIED FORWARD · EDIT FROM LAPTOP · DO NOT TOUCH TV</div>
   </div>
 
 </div>
 <script>
+(() => {
+const RELEASE="2026-10-20-combined-v1";
+if(document.documentElement.dataset.tvRelease !== RELEASE){
+  window.location.reload();
+  return;
+}
+if(window.__stateraDashboardStarted === RELEASE) return;
+window.__stateraDashboardStarted = RELEASE;
 function scaleToFit(){
   const s=document.getElementById('scaler');
   const scale=Math.min(window.innerWidth/1920,window.innerHeight/1080);
@@ -338,35 +346,32 @@ setInterval(()=>{
   setTimeout(()=>{ el.style.opacity='1'; },100);
 },30000);
 
-// Silent background refresh every 5 minutes
-// Fetches the page in background and updates only changed data
-setInterval(()=>{
-  fetch(window.location.href + '?nocache=' + Date.now())
-    .then(r => r.text())
-    .then(html => {
-      const parser = new DOMParser();
-      const newDoc = parser.parseFromString(html, 'text/html');
-      const newScript = newDoc.querySelector('script:last-of-type');
-      if(newScript){
-        // Extract and re-run just the data sections
-        const scriptText = newScript.textContent;
-        // Check if content actually changed
-        const currentScript = document.querySelector('script:last-of-type').textContent;
-        if(scriptText !== currentScript){
-          // Re-render all sections silently
-          try { eval(scriptText); } catch(e){}
-        }
-      }
-    })
-    .catch(()=>{});
+// Check every five minutes; reload the full document on a release change.
+// Every published change should update data-tv-release and RELEASE together.
+setInterval(async()=>{
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set('nocache', Date.now());
+    const response = await fetch(url, {cache:'no-store'});
+    if(!response.ok) return;
+    const next = new DOMParser().parseFromString(await response.text(), 'text/html');
+    const nextRelease = next.documentElement.dataset.tvRelease;
+    const nextScript = next.querySelector('script:last-of-type');
+    const currentScript = document.querySelector('script:last-of-type');
+    if(nextRelease && (nextRelease !== RELEASE ||
+       (nextScript && nextScript.textContent !== currentScript.textContent))){
+      window.location.reload();
+    }
+  } catch(e) { /* Keep the current display if the network is unavailable. */ }
 }, 5 * 60 * 1000);
+// Prior start/close/originalClose fields remain historical until targets are reconfirmed.
 const PROJECTS=[
-  {name:"Udall St",                  pm:"Diego + Larry", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Baseboards 4/6 done, appliances 10/09, A/C 10/12"},
-  {name:"1506 5th St Coronado",      pm:"Diego + Ed",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Framing + plumbing active, CO $7,500 pending approval"},
-  {name:"Via Mar Valle — Patio",     pm:"Eitan + Tomas", start:"06/09", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"closing", phase:"Stone + fire pit done, appliances + molding pending"},
-  {name:"2790 Silver Oak Ct",        pm:"Diego + Ed",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Electrical, framing + plumbing all active simultaneously"},
-  {name:"Becker — Camino del Mar",   pm:"Diego + Ed",    start:"09/08", close:"03/08", originalClose:null, originalCloseDate:null, closeDate:"2027-03-08", status:"active",  phase:"Framing active, engineer comments + plumbing quotes pending"},
-  {name:"8813 Greenberg",            pm:"Diego",         start:"10/05", close:"10/12", originalClose:null, originalCloseDate:null, closeDate:"2026-10-12", status:"active",  phase:"Demo + drywall + flooring + paint active, 1-week target"},
+  {name:"Udall St",                  pm:"Diego", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Interior finishes and exterior closeout", targetConfirmed:false},
+  {name:"1506 5th St Coronado",      pm:"Diego",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Framing and plumbing in progress", targetConfirmed:false},
+  {name:"Via Mar Valle — Patio",     pm:"Diego", start:"06/09", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"closing", phase:"Lighting, column and finish punch list", targetConfirmed:false},
+  {name:"2790 Silver Oak Ct",        pm:"Diego",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Tile preparation and MEP/framing coordination", targetConfirmed:false},
+  {name:"Becker — Camino del Mar",   pm:"Diego",    start:"09/08", close:"03/08", originalClose:null, originalCloseDate:null, closeDate:"2027-03-08", status:"active",  phase:"Paint corrections and beam review", targetConfirmed:false},
+  {name:"8813 Greenberg",            pm:"Diego",         start:"10/05", close:"10/12", originalClose:null, originalCloseDate:null, closeDate:"2026-10-12", status:"active",  phase:"Baseboard, casing and handrail repaint; wall accessory", targetConfirmed:false},
 ];
 
 const PIPELINE=[
@@ -377,76 +382,89 @@ const PIPELINE=[
   {name:"Mustang Ridge",          pm:"Eitan",         description:"Windows + Doors",    status:"Proposal Stage", value:"$70K",        confidence:"Warm", winPct:45},
   {name:"Via Cangrejo",           pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$120K",       confidence:"Warm", winPct:40},
   {name:"1102 La Jolla Rancho",   pm:"Eitan",         description:"House Remodel",      status:"Early Stage",    value:"TBD",         confidence:"Warm", winPct:40},
-  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},
+  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Proposal in progress", "value": "$950K–$1.1M", "confidence": null, "winPct": 20, "showStage": true, "estimatedValue": true},
+  {"name": "Ana Levine", "pm": "Eitan", "description": "New kitchen", "status": "Proposal in progress", "value": "$40K–$80K", "confidence": null, "winPct": null, "showStage": true, "estimatedValue": true},
+
 ];
 
 const BIG_WINS=[
-  "920 Garage Room — Complete and delivered ✅",
-  "La Jolla — Closed ✅",
-  "Via Mar Valle — Stone complete, fire pit installed, garage closed ✅",
-  "Silver Oak — Electrical, framing + plumbing all active simultaneously ✅",
-  "8813 Greenberg — New project in, demo to finish in 1 week ✅",
+  "Udall: countertops in all six units, baseboards in five, exterior lighting complete.",
+  "Silver Oak: floor leveling completed Oct 19.",
+  "Becker: finish samples and plumbing fixtures approved Oct 19."
 ];
 
 const RED_FLAGS=[
-  {project:"Udall St",     issue:"SDG&E + water heaters + garbage disposals + grinding machine today",    owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"Studio + Magician kitchens before templates + Carlos pickup this week", owner:"Diego", due:"TODAY"},
-  {project:"Udall St",     issue:"Exterior paint CO + Alfredo start + exterior concrete confirm",         owner:"Diego", due:"TODAY"},
-  {project:"5th Coronado", issue:"CO $7,500 approve today so Angel can continue",                        owner:"Eitan", due:"TODAY"},
-  {project:"Becker",       issue:"Engineer meeting + plumbing selection deadline today",                  owner:"Diego", due:"TODAY"},
+  {
+    "project": "Udall",
+    "issue": "Power Oct 30 for appliances/HVAC testing; concrete before water heaters",
+    "owner": "Diego",
+    "due": "Oct 30 / concrete TBC"
+  },
+  {
+    "project": "Via Mar Valle",
+    "issue": "Electrical troubleshooting and GFCI repair pending",
+    "owner": "Diego / Larry",
+    "due": "Date TBC"
+  },
+  {
+    "project": "Silver Oak",
+    "issue": "Confirm inspection sequence, trade brackets and electrical scope",
+    "owner": "Diego",
+    "due": "Date TBC"
+  }
 ];
 
 const WATCHLIST=[
-  {project:"Silver Oak",    note:"Tile exhibit approval + sprinkler meeting tomorrow prep"},
-  {project:"Via Mar Valle", note:"Thomas molding + stair paint + landscaping $500"},
-  {project:"8813 Greenberg",note:"Josh floor follow-up, 1-week schedule check"},
-  {project:"Udall St",      note:"Appliances 10/09, A/C 10/12 locked"},
+  {
+    "project": "Fifth",
+    "note": "Framing inspection Oct 20 PM; result and site cleanup pending."
+  },
+  {
+    "project": "Silver Oak",
+    "note": "Tile installation scheduled to start Oct 21."
+  },
+  {
+    "project": "920 Coronado",
+    "note": "Clarify existing follow-up vs new scope before classifying."
+  }
 ];
 
 const MONTHLY=[
-  "Udall — SDG&E, kitchens, countertops, appliances 10/09, A/C 10/12",
-  "5th Coronado — CO $7,500, framing + plumbing active",
-  "Via Mar Valle — Molding, stair paint, landscaping, final close",
-  "Silver Oak — Tile approval, sprinkler meeting, framing + plumbing",
-  "Becker — Engineer meeting, plumbing selection, framing",
+  "Confirm project completion dates and reconcile schedules.",
+  "Resolve Udall tree scope, pricing and responsible contractor.",
+  "Reschedule warehouse/office inventory with Liat."
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
 
-
-
-
-
-
-
 const SC={active:"#22c55e",blocked:"#ef4444",closing:"#f59e0b","pre-con":"#60a5fa"};
 
-
-
 // ── CLOCK ────────────────────────────────────────────────────
+const BUSINESS_TIME_ZONE='America/Los_Angeles';
+function pacificParts(now=new Date()){
+  return Object.fromEntries(new Intl.DateTimeFormat('en-US',{
+    timeZone:BUSINESS_TIME_ZONE, year:'numeric',month:'2-digit',day:'2-digit',
+    hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',weekday:'long'
+  }).formatToParts(now).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
+}
+function pacificCalendarDay(now=new Date()){
+  const p=pacificParts(now);
+  return Date.UTC(Number(p.year),Number(p.month)-1,Number(p.day));
+}
+function daysUntil(date,now=new Date()){
+  return Math.round((Date.parse(date+'T00:00:00Z')-pacificCalendarDay(now))/86400000);
+}
+let renderedDay=null;
 function tick(){
-  const n=new Date();
-  const D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const now=new Date(), p=pacificParts(now);
   const M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  document.getElementById('ch').textContent=String(n.getHours()).padStart(2,'0');
-  document.getElementById('cm').textContent=String(n.getMinutes()).padStart(2,'0');
-  document.getElementById('cs').textContent=String(n.getSeconds()).padStart(2,'0');
-  document.getElementById('cc').style.opacity=n.getSeconds()%2===0?'1':'0.3';
-  document.getElementById('cd').textContent=`${D[n.getDay()]} · ${M[n.getMonth()]} ${n.getDate()}, ${n.getFullYear()}`;
+  document.getElementById('ch').textContent=p.hour;
+  document.getElementById('cm').textContent=p.minute;
+  document.getElementById('cs').textContent=p.second;
+  document.getElementById('cc').style.opacity=Number(p.second)%2===0?'1':'0.3';
+  document.getElementById('cd').textContent=`${p.weekday} · ${M[Number(p.month)-1]} ${Number(p.day)}, ${p.year} · PT`;
+  const day=`${p.year}-${p.month}-${p.day}`;
+  if(renderedDay!==day){renderedDay=day;renderProjects();}
 }
 setInterval(tick,1000); tick();
 
@@ -459,11 +477,12 @@ setInterval(()=>{
 },2800);
 
 // ── PROJECTS TABLE ───────────────────────────────────────────
+function renderProjects(){
 document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   const c=SC[p.status]||'#94a3b8';
   let v='<span style="color:#475569">—</span>';
-  if(p.closeDate){
-    const days = Math.round((new Date(p.closeDate) - new Date()) / (1000*60*60*24));
+  if(p.targetConfirmed !== false && p.closeDate){
+    const days = daysUntil(p.closeDate);
     let label, vc, vb;
     if(days < 0){
       label = `${Math.abs(days)}d late`;
@@ -485,10 +504,12 @@ document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   return `<tr>
     <td><div class="proj-name"><span class="sdot" style="background:${c};box-shadow:0 0 7px ${c}90"></span>${p.name}</div></td>
     <td class="td-pm">${p.pm}</td><td class="td-phase">${p.phase}</td>
-    <td class="td-date c">${p.start}</td><td class="td-date c">${p.originalClose && p.originalClose!==p.close ? `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">${p.originalClose}</span><span style="color:#e2e8f0;font-weight:600">${p.close}</span><span style="font-size:9px;color:#f59e0b;font-weight:700;letter-spacing:0.5px">+${Math.round((new Date(p.closeDate)-new Date(p.originalCloseDate))/(1000*60*60*24))}D</span></div>` : p.close}</td>
+    <td class="td-date c">${p.start}</td><td class="td-date c">${p.targetConfirmed === false ? '<span title="Current completion date awaiting confirmation">TBC</span>' : p.originalClose && p.originalClose!==p.close ? `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">${p.originalClose}</span><span style="color:#e2e8f0;font-weight:600">${p.close}</span><span style="font-size:9px;color:#f59e0b;font-weight:700;letter-spacing:0.5px">+${Math.round((new Date(p.closeDate)-new Date(p.originalCloseDate))/(1000*60*60*24))}D</span></div>` : p.close}</td>
     <td class="c">${v}</td>
   </tr>`;
 }).join('');
+}
+renderProjects();
 
 // ── DONUT ────────────────────────────────────────────────────
 const counts={active:0,blocked:0,closing:0,"pre-con":0};
@@ -534,7 +555,7 @@ document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
 
 // ── AUTO STATS ───────────────────────────────────────────────
 document.getElementById('active-sites-count').textContent=PROJECTS.filter(p=>p.status==='active'||p.status==='blocked'||p.status==='closing').length;
-document.getElementById('hot-leads-count').textContent=PIPELINE.filter(p=>p.confidence==='Hot').length||PIPELINE.length;
+document.getElementById('hot-leads-count').textContent=PIPELINE.filter(p=>p.confidence==='Hot').length;
 
 // ── PIPELINE TABLE ───────────────────────────────────────────
 const confColor={Hot:"#ef4444",Warm:"#f59e0b",Cold:"#60a5fa"};
@@ -544,21 +565,22 @@ for(let i=0;i<PIPELINE.length;i+=2){
   const a=PIPELINE[i], b=PIPELINE[i+1];
   const renderCell=(p)=>{
     if(!p) return `<td colspan="5"></td>`;
-    const pct=p.winPct||0;
+    const hasPct=typeof p.winPct==='number' && Number.isFinite(p.winPct);
+    const pct=hasPct ? p.winPct : null;
     const bc=pct>=70?"#22c55e":pct>=40?"#f59e0b":"#60a5fa";
     return `
       <td style="font-weight:700;color:#e2e8f0;font-size:12px;padding:5px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0">${p.name}</td>
-      <td style="color:#64748b;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0">${p.description}</td>
+      <td style="color:#64748b;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0">${p.description}${p.showStage ? `<div style="font-size:9px;color:#a5b4fc;white-space:normal;margin-top:2px">${p.status}</div>` : ""}</td>
       <td style="text-align:center;padding:5px 4px">
-        <div style="display:flex;align-items:center;gap:3px">
+        ${hasPct ? `<div style="display:flex;align-items:center;gap:3px">
           <div style="width:32px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
             <div style="width:${pct}%;height:100%;background:${bc};border-radius:2px"></div>
           </div>
           <span style="font-size:10px;font-weight:700;color:${bc};font-family:'DM Mono',monospace">${pct}%</span>
-        </div>
+        </div>` : '<span style="font-size:10px;color:#94a3b8">TBD</span>'}
       </td>
       <td style="text-align:right;font-size:11px;font-weight:700;color:#22c55e;font-family:'DM Mono',monospace;white-space:nowrap;padding:5px 4px">${p.value}</td>
-      <td style="text-align:center;padding:5px 0"><span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};font-size:9px;padding:1px 5px">${p.confidence}</span></td>`;
+      <td style="text-align:center;padding:5px 0">${confColor[p.confidence] ? `<span class="pipe-badge" style="background:${confBg[p.confidence]};color:${confColor[p.confidence]};font-size:9px;padding:1px 5px">${p.confidence}</span>` : '<span style="color:#64748b">—</span>'}</td>`;
   };
   pipeRows.push(`<tr style="border-top:1px solid rgba(255,255,255,0.06)">
     ${renderCell(a)}
@@ -581,6 +603,8 @@ document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
     <span class="priority-arrow">›</span>${item}
   </div>`
 ).join('');
+})();
 </script>
 </body>
 </html>
+
