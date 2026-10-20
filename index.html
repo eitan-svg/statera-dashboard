@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-tv-release="2026-10-20-combined-v1">
+<html lang="en" data-tv-release="2026-10-20-combined-v2">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1920"/>
@@ -227,11 +227,11 @@
 
       <!-- ACTIVE PROJECTS -->
       <div class="card" style="flex:0 0 auto">
-        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">Operations as of Oct 20, 2026 · Completion dates awaiting confirmation</span></div>
+        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">Operations as of Oct 20, 2026 · Recorded targets · dates awaiting confirmation</span></div>
         <table>
           <thead><tr>
             <th>Project</th><th>PM</th><th>Phase</th>
-            <th class="c">Start</th><th class="c">Target</th><th class="c">Days Left</th>
+            <th class="c">Start</th><th class="c">Recorded target</th><th class="c">Days Left</th>
           </tr></thead>
           <tbody id="projects-tbody"></tbody>
         </table>
@@ -323,7 +323,7 @@
 </div>
 <script>
 (() => {
-const RELEASE="2026-10-20-combined-v1";
+const RELEASE="2026-10-20-combined-v2";
 if(document.documentElement.dataset.tvRelease !== RELEASE){
   window.location.reload();
   return;
@@ -364,14 +364,15 @@ setInterval(async()=>{
     }
   } catch(e) { /* Keep the current display if the network is unavailable. */ }
 }, 5 * 60 * 1000);
-// Prior start/close/originalClose fields remain historical until targets are reconfirmed.
+// Recorded start/close/originalClose dates remain visible for schedule accountability.
+// targetConfirmed records verification status, not whether to show the recorded schedule.
 const PROJECTS=[
   {name:"Udall St",                  pm:"Diego", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Interior finishes and exterior closeout", targetConfirmed:false},
   {name:"1506 5th St Coronado",      pm:"Diego",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Framing and plumbing in progress", targetConfirmed:false},
   {name:"Via Mar Valle — Patio",     pm:"Diego", start:"06/09", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"closing", phase:"Lighting, column and finish punch list", targetConfirmed:false},
   {name:"2790 Silver Oak Ct",        pm:"Diego",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Tile preparation and MEP/framing coordination", targetConfirmed:false},
   {name:"Becker — Camino del Mar",   pm:"Diego",    start:"09/08", close:"03/08", originalClose:null, originalCloseDate:null, closeDate:"2027-03-08", status:"active",  phase:"Paint corrections and beam review", targetConfirmed:false},
-  {name:"8813 Greenberg",            pm:"Diego",         start:"10/05", close:"10/12", originalClose:null, originalCloseDate:null, closeDate:"2026-10-12", status:"active",  phase:"Baseboard, casing and handrail repaint; wall accessory", targetConfirmed:false},
+  {name:"8813 Greenberg",            pm:"Diego",         start:"10/05", close:"10/12", originalClose:null, originalCloseDate:null, closeDate:"2026-10-12", status:"closing",  phase:"Baseboard, casing and handrail repaint; wall accessory", targetConfirmed:false},
 ];
 
 const PIPELINE=[
@@ -382,8 +383,8 @@ const PIPELINE=[
   {name:"Mustang Ridge",          pm:"Eitan",         description:"Windows + Doors",    status:"Proposal Stage", value:"$70K",        confidence:"Warm", winPct:45},
   {name:"Via Cangrejo",           pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$120K",       confidence:"Warm", winPct:40},
   {name:"1102 La Jolla Rancho",   pm:"Eitan",         description:"House Remodel",      status:"Early Stage",    value:"TBD",         confidence:"Warm", winPct:40},
-  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Proposal in progress", "value": "$950K–$1.1M", "confidence": null, "winPct": 20, "showStage": true, "estimatedValue": true},
-  {"name": "Ana Levine", "pm": "Eitan", "description": "New kitchen", "status": "Proposal in progress", "value": "$40K–$80K", "confidence": null, "winPct": null, "showStage": true, "estimatedValue": true},
+  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Proposal in progress", "value": "$950K–$1.1M", "confidence": "Cold", "winPct": 20, "showStage": true, "estimatedValue": true},
+  {"name": "Ana Levine", "pm": "Eitan", "description": "New kitchen", "status": "Proposal in progress", "value": "$40K–$80K", "confidence": "Cold", "winPct": 20, "showStage": true, "estimatedValue": true},
 
 ];
 
@@ -481,7 +482,7 @@ function renderProjects(){
 document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   const c=SC[p.status]||'#94a3b8';
   let v='<span style="color:#475569">—</span>';
-  if(p.targetConfirmed !== false && p.closeDate){
+  if(p.closeDate){
     const days = daysUntil(p.closeDate);
     let label, vc, vb;
     if(days < 0){
@@ -504,7 +505,7 @@ document.getElementById('projects-tbody').innerHTML=PROJECTS.map(p=>{
   return `<tr>
     <td><div class="proj-name"><span class="sdot" style="background:${c};box-shadow:0 0 7px ${c}90"></span>${p.name}</div></td>
     <td class="td-pm">${p.pm}</td><td class="td-phase">${p.phase}</td>
-    <td class="td-date c">${p.start}</td><td class="td-date c">${p.targetConfirmed === false ? '<span title="Current completion date awaiting confirmation">TBC</span>' : p.originalClose && p.originalClose!==p.close ? `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">${p.originalClose}</span><span style="color:#e2e8f0;font-weight:600">${p.close}</span><span style="font-size:9px;color:#f59e0b;font-weight:700;letter-spacing:0.5px">+${Math.round((new Date(p.closeDate)-new Date(p.originalCloseDate))/(1000*60*60*24))}D</span></div>` : p.close}</td>
+    <td class="td-date c">${p.start}</td><td class="td-date c">${p.originalClose && p.originalClose!==p.close ? `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">${p.originalClose}</span><span style="color:#e2e8f0;font-weight:600">${p.close}</span><span style="font-size:9px;color:#f59e0b;font-weight:700;letter-spacing:0.5px">+${Math.round((new Date(p.closeDate)-new Date(p.originalCloseDate))/(1000*60*60*24))}D</span></div>` : p.close}</td>
     <td class="c">${v}</td>
   </tr>`;
 }).join('');
@@ -607,4 +608,5 @@ document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
 </script>
 </body>
 </html>
+
 
