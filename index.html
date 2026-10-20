@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-tv-release="2026-10-20-combined-v2">
+<html lang="en" data-tv-release="2026-10-20-combined-v3">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1920"/>
@@ -323,7 +323,7 @@
 </div>
 <script>
 (() => {
-const RELEASE="2026-10-20-combined-v2";
+const RELEASE="2026-10-20-combined-v3";
 if(document.documentElement.dataset.tvRelease !== RELEASE){
   window.location.reload();
   return;
@@ -367,7 +367,7 @@ setInterval(async()=>{
 // Recorded start/close/originalClose dates remain visible for schedule accountability.
 // targetConfirmed records verification status, not whether to show the recorded schedule.
 const PROJECTS=[
-  {name:"Udall St",                  pm:"Diego", start:"03/15", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"active",  phase:"Interior finishes and exterior closeout", targetConfirmed:false},
+  {name:"Udall St",                  pm:"Diego", start:"03/15", close:"11/06", originalClose:"10/15", originalCloseDate:"2026-10-15", closeDate:"2026-11-06", status:"active",  phase:"Interior finishes and exterior closeout", targetConfirmed:true},
   {name:"1506 5th St Coronado",      pm:"Diego",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Framing and plumbing in progress", targetConfirmed:false},
   {name:"Via Mar Valle — Patio",     pm:"Diego", start:"06/09", close:"10/15", originalClose:null, originalCloseDate:null, closeDate:"2026-10-15", status:"closing", phase:"Lighting, column and finish punch list", targetConfirmed:false},
   {name:"2790 Silver Oak Ct",        pm:"Diego",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Tile preparation and MEP/framing coordination", targetConfirmed:false},
