@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-tv-release="2026-10-20-combined-v3">
+<html lang="en" data-tv-release="2026-11-04-projects-pipeline-v1">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1920"/>
@@ -173,7 +173,7 @@
       <div class="stat-big" style="color:#22c55e">80</div>
       <div>
         <div class="stat-title">Projects Delivered</div>
-        <div class="stat-year" style="color:#22c55e">25 this year</div>
+        <div class="stat-year" style="color:#22c55e">27 closed this year</div>
         <div class="stat-sub">all time</div>
       </div>
     </div>
@@ -227,7 +227,7 @@
 
       <!-- ACTIVE PROJECTS -->
       <div class="card" style="flex:0 0 auto">
-        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">Operations as of Oct 20, 2026 · Recorded targets · dates awaiting confirmation</span></div>
+        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">New approvals Nov 4, 2026 · Other operations as of Oct 20 · Recorded targets</span></div>
         <table>
           <thead><tr>
             <th>Project</th><th>PM</th><th>Phase</th>
@@ -241,7 +241,7 @@
       <div class="card" style="flex:0 0 auto;border-color:rgba(129,140,248,0.25);background:rgba(129,140,248,0.04)">
         <div class="section-label" style="color:#818cf8">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
-          Pipeline <span style="float:right;font-size:10px;letter-spacing:0;text-transform:none;color:#94a3b8">Existing 8 retained · 2 new Oct 20 · New values are estimates, not contracts</span>
+          Pipeline <span style="float:right;font-size:10px;letter-spacing:0;text-transform:none;color:#94a3b8">Updated Nov 4, 2026 · Values are estimates, not contracts</span>
         </div>
         <table style="width:100%;border-collapse:collapse">
           <colgroup>
@@ -323,7 +323,7 @@
 </div>
 <script>
 (() => {
-const RELEASE="2026-10-20-combined-v3";
+const RELEASE="2026-11-04-projects-pipeline-v1";
 if(document.documentElement.dataset.tvRelease !== RELEASE){
   window.location.reload();
   return;
@@ -373,19 +373,23 @@ const PROJECTS=[
   {name:"2790 Silver Oak Ct",        pm:"Diego",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Tile preparation and MEP/framing coordination", targetConfirmed:false},
   {name:"Becker — Camino del Mar",   pm:"Diego",    start:"09/08", close:"03/08", originalClose:null, originalCloseDate:null, closeDate:"2027-03-08", status:"active",  phase:"Paint corrections and beam review", targetConfirmed:false},
   {name:"8813 Greenberg",            pm:"Diego",         start:"10/05", close:"10/12", originalClose:null, originalCloseDate:null, closeDate:"2026-10-12", status:"closing",  phase:"Baseboard, casing and handrail repaint; wall accessory", targetConfirmed:false},
+  {name:"Jaime Medrez — Friars",      pm:"TBD", start:"11/09", close:"01/09/27 (est.)", originalClose:null, originalCloseDate:null, closeDate:"2027-01-09", status:"pre-con", phase:"Approved · starts Nov 9 · approx. 2 months", targetConfirmed:false},
+  {name:"Adato — 3517 Camino del Rio", pm:"TBD", start:"11/05", close:"11/08", originalClose:null, originalCloseDate:null, closeDate:"2026-11-08", status:"pre-con", phase:"Approved · scheduled Nov 5–8", targetConfirmed:true},
 ];
 
 const PIPELINE=[
   {name:"Chabad Coronado",        pm:"Eitan",         description:"Full Renovation",    status:"Pending Scope",  value:"$250K–$400K", confidence:"Hot",  winPct:65},
-  {name:"Jaime Presidio",         pm:"Eitan",         description:"Apt Renovation",     status:"Proposal Out",   value:"$150K",       confidence:"Hot",  winPct:95},
   {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Windows",            status:"Proposal Stage", value:"$25K",        confidence:"Warm", winPct:50},
   {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$140K",       confidence:"Warm", winPct:50},
   {name:"Mustang Ridge",          pm:"Eitan",         description:"Windows + Doors",    status:"Proposal Stage", value:"$70K",        confidence:"Warm", winPct:45},
   {name:"Via Cangrejo",           pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$120K",       confidence:"Warm", winPct:40},
   {name:"1102 La Jolla Rancho",   pm:"Eitan",         description:"House Remodel",      status:"Early Stage",    value:"TBD",         confidence:"Warm", winPct:40},
-  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Proposal in progress", "value": "$950K–$1.1M", "confidence": "Cold", "winPct": 20, "showStage": true, "estimatedValue": true},
+  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Preliminary proposal sent", "value": "$1.35M", "confidence": null, "winPct": null, "showStage": true, "estimatedValue": true},
   {"name": "Ana Levine", "pm": "Eitan", "description": "New kitchen", "status": "Proposal in progress", "value": "$40K–$80K", "confidence": "Cold", "winPct": 20, "showStage": true, "estimatedValue": true},
 
+  {name:"Karen / Jason", description:"Medical office", value:"$72,800", winPct:90, estimatedValue:true},
+  {name:"Lindsey Ascolani", description:"BBQ", value:"$100K", winPct:60, estimatedValue:true},
+  {name:"Todd Kirschen", description:"Second floor", value:"$62K", winPct:50, estimatedValue:true},
 ];
 
 const BIG_WINS=[
