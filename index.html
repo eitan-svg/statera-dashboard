@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-tv-release="2026-11-04-status-v4">
+<html lang="en" data-tv-release="2026-11-05-pipeline-cold-v5">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1920"/>
@@ -138,6 +138,14 @@
   .footer { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 7px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
   .footer-left { font-size: 11px; color: #2d3748; letter-spacing: 1px; }
   .footer-right { font-size: 11px; color: #2d3748; font-family: 'DM Mono', monospace; }
+.monthly-cold-grid {display:grid;grid-template-columns:1fr 1fr;gap:18px;min-height:0;}
+.cold-panel {border-left:1px solid rgba(96,165,250,.25);padding-left:18px;}
+.cold-heading {font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#93c5fd;margin-bottom:6px;}
+.cold-heading span {font-size:10px;letter-spacing:0;text-transform:none;font-weight:400;color:#94a3b8;margin-left:8px;}
+.cold-item {display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid rgba(96,165,250,.12);}
+.cold-name {font-size:13px;font-weight:600;color:#cbd5e1;}
+.cold-scope {font-size:11px;color:#94a3b8;}
+.cold-value {font:12px 'DM Mono',monospace;color:#93c5fd;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -227,7 +235,7 @@
 
       <!-- ACTIVE PROJECTS -->
       <div class="card" style="flex:0 0 auto">
-        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">New approvals Nov 4, 2026 · Other operations as of Oct 20 · Recorded targets</span></div>
+        <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">Active Projects<span style="font-size:11px;letter-spacing:0;text-transform:none;color:#94a3b8">Adato / Udall updated Nov 5 · Other project details carried forward</span></div>
         <table>
           <thead><tr>
             <th>Project</th><th>PM</th><th>Phase</th>
@@ -241,7 +249,7 @@
       <div class="card" style="flex:0 0 auto;border-color:rgba(129,140,248,0.25);background:rgba(129,140,248,0.04)">
         <div class="section-label" style="color:#818cf8">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#818cf8;margin-right:10px;vertical-align:middle"></span>
-          Pipeline <span style="float:right;font-size:10px;letter-spacing:0;text-transform:none;color:#94a3b8">Updated Nov 4, 2026 · Values are estimates, not contracts</span>
+          Pipeline <span style="float:right;font-size:10px;letter-spacing:0;text-transform:none;color:#94a3b8">Updated Nov 5, 2026 · Values are estimates, not contracts</span>
         </div>
         <table style="width:100%;border-collapse:collapse">
           <colgroup>
@@ -282,7 +290,7 @@
             <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:10px;vertical-align:middle"></span>
             This Month
           </div>
-          <div id="monthly-priorities"></div>
+          <div class="monthly-cold-grid"><div id="monthly-priorities"></div><div class="cold-panel"><div class="cold-heading">Cold Leads <span>Keep in touch</span></div><div id="cold-leads"></div></div></div>
         </div>
       </div>
 
@@ -300,7 +308,7 @@
       <div class="card" style="border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.05);flex:0 0 auto;">
         <div class="section-label" style="color:#22c55e">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:10px;box-shadow:0 0 8px #22c55e;vertical-align:middle"></span>
-          Wins &amp; Milestones — Nov 4
+          Big Wins — Nov 5
         </div>
         <div id="big-wins"></div>
       </div>
@@ -323,7 +331,7 @@
 </div>
 <script>
 (() => {
-const RELEASE="2026-11-04-status-v4";
+const RELEASE="2026-11-05-pipeline-cold-v5";
 if(document.documentElement.dataset.tvRelease !== RELEASE){
   window.location.reload();
   return;
@@ -367,56 +375,201 @@ setInterval(async()=>{
 // Recorded start/close/originalClose dates remain visible for schedule accountability.
 // targetConfirmed records verification status, not whether to show the recorded schedule.
 const PROJECTS=[
-  {name:"Udall St",                  pm:"Diego", start:"03/15", close:"11/06", originalClose:"10/15", originalCloseDate:"2026-10-15", closeDate:"2026-11-06", status:"active",  phase:"Interior finishes and exterior closeout", targetConfirmed:true},
-  {name:"1506 5th St Coronado",      pm:"Diego",    start:"04/10", close:"03/31", originalClose:null, originalCloseDate:null, closeDate:"2027-03-31", status:"active",  phase:"Framing and plumbing in progress", targetConfirmed:false},
-  {name:"2790 Silver Oak Ct",        pm:"Diego",    start:"07/29", close:"01/29", originalClose:null, originalCloseDate:null, closeDate:"2027-01-29", status:"active",  phase:"Tile preparation and MEP/framing coordination", targetConfirmed:false},
-  {name:"Becker — Camino del Mar",   pm:"Diego",    start:"09/08", close:"03/08", originalClose:null, originalCloseDate:null, closeDate:"2027-03-08", status:"active",  phase:"Paint corrections and beam review", targetConfirmed:false},
-  {name:"Jaime Medrez — Friars",      pm:"TBD", start:"11/09", close:"01/09/27 (est.)", originalClose:null, originalCloseDate:null, closeDate:"2027-01-09", status:"pre-con", phase:"Approved · starts Nov 9 · approx. 2 months", targetConfirmed:false},
-  {name:"Adato — 3517 Camino del Rio", pm:"TBD", start:"11/05", close:"11/08", originalClose:null, originalCloseDate:null, closeDate:"2026-11-08", status:"pre-con", phase:"Approved · scheduled Nov 5–8", targetConfirmed:true},
+  {
+    "name": "Udall St",
+    "pm": "Diego",
+    "start": "03/15",
+    "close": "11/20",
+    "originalClose": "10/15",
+    "originalCloseDate": "2026-10-15",
+    "closeDate": "2026-11-20",
+    "status": "active",
+    "phase": "Interior finishes and exterior closeout",
+    "targetConfirmed": true,
+    "previousTarget": "11/06"
+  },
+  {
+    "name": "1506 5th St Coronado",
+    "pm": "Diego",
+    "start": "04/10",
+    "close": "03/31",
+    "originalClose": null,
+    "originalCloseDate": null,
+    "closeDate": "2027-03-31",
+    "status": "active",
+    "phase": "Framing and plumbing in progress",
+    "targetConfirmed": false
+  },
+  {
+    "name": "2790 Silver Oak Ct",
+    "pm": "Diego",
+    "start": "07/29",
+    "close": "01/29",
+    "originalClose": null,
+    "originalCloseDate": null,
+    "closeDate": "2027-01-29",
+    "status": "active",
+    "phase": "Tile preparation and MEP/framing coordination",
+    "targetConfirmed": false
+  },
+  {
+    "name": "Becker — Camino del Mar",
+    "pm": "Diego",
+    "start": "09/08",
+    "close": "03/08",
+    "originalClose": null,
+    "originalCloseDate": null,
+    "closeDate": "2027-03-08",
+    "status": "active",
+    "phase": "Paint corrections and beam review",
+    "targetConfirmed": false
+  },
+  {
+    "name": "Jaime Medrez — Friars",
+    "pm": "TBD",
+    "start": "11/09",
+    "close": "01/09/27 (est.)",
+    "originalClose": null,
+    "originalCloseDate": null,
+    "closeDate": "2027-01-09",
+    "status": "pre-con",
+    "phase": "Approved · starts Nov 9 · approx. 2 months",
+    "targetConfirmed": false
+  },
+  {
+    "name": "Adato — 3517 Camino del Rio",
+    "pm": "Diego",
+    "start": "11/05",
+    "close": "11/08",
+    "originalClose": null,
+    "originalCloseDate": null,
+    "closeDate": "2026-11-08",
+    "status": "active",
+    "phase": "Started Nov 5 · target Nov 8",
+    "targetConfirmed": true
+  }
 ];
 
 const PIPELINE=[
-  {name:"Chabad Coronado",        pm:"Eitan",         description:"Full Renovation",    status:"Pending Scope",  value:"$250K–$400K", confidence:"Hot",  winPct:65},
-  {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Windows",            status:"Proposal Stage", value:"$25K",        confidence:"Warm", winPct:50},
-  {name:"5802 Sagebrush",         pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$140K",       confidence:"Warm", winPct:50},
-  {name:"Mustang Ridge",          pm:"Eitan",         description:"Windows + Doors",    status:"Proposal Stage", value:"$70K",        confidence:"Warm", winPct:45},
-  {name:"Via Cangrejo",           pm:"Eitan / Victor",description:"Patio Remodel",      status:"Proposal Stage", value:"$120K",       confidence:"Warm", winPct:40},
-  {name:"1102 La Jolla Rancho",   pm:"Eitan",         description:"House Remodel",      status:"Early Stage",    value:"TBD",         confidence:"Warm", winPct:40},
-  {name:"Eric Clad",              pm:"Eitan",         description:"New Warehouse",      status:"Early Stage",    value:"TBD",         confidence:"Cold", winPct:20},  {"name": "Jim & Jillian Hayes", "pm": "Eitan", "description": "Scope TBD", "status": "Preliminary proposal sent", "value": "$1.35M", "confidence": null, "winPct": null, "showStage": true, "estimatedValue": true},
-  {"name": "Ana Levine", "pm": "Eitan", "description": "New kitchen", "status": "Proposal in progress", "value": "$40K–$80K", "confidence": "Cold", "winPct": 20, "showStage": true, "estimatedValue": true},
-
-  {name:"Karen / Jason", description:"Medical office", value:"$72,800", winPct:90, estimatedValue:true},
-  {name:"Lindsey Ascolani", description:"BBQ", value:"$100K", winPct:60, estimatedValue:true},
-  {name:"Todd Kirschen", description:"Second floor", value:"$62K", winPct:50, estimatedValue:true},
+  {
+    "name": "Chabad Coronado",
+    "pm": "Eitan",
+    "description": "Phase 1 · ~half scope",
+    "status": "Potential Jan 2027 start",
+    "value": "TBD",
+    "confidence": "Hot",
+    "winPct": 80,
+    "showStage": true
+  },
+  {
+    "name": "5802 Sagebrush",
+    "pm": "Eitan / Victor",
+    "description": "Windows",
+    "status": "Proposal Stage",
+    "value": "$25K",
+    "confidence": "Warm",
+    "winPct": 50
+  },
+  {
+    "name": "5802 Sagebrush",
+    "pm": "Eitan / Victor",
+    "description": "Patio Remodel",
+    "status": "Proposal Stage",
+    "value": "$140K",
+    "confidence": "Warm",
+    "winPct": 50
+  },
+  {
+    "name": "Jim & Jillian Hayes",
+    "pm": "Eitan",
+    "description": "Scope TBD",
+    "status": "Preliminary proposal sent",
+    "value": "$1.35M",
+    "confidence": null,
+    "winPct": null,
+    "showStage": true,
+    "estimatedValue": true
+  },
+  {
+    "name": "Ana Levin",
+    "pm": "Eitan",
+    "description": "New kitchen",
+    "status": "Proposal in progress",
+    "value": "$40K–$80K",
+    "confidence": "Warm",
+    "winPct": 50,
+    "showStage": true,
+    "estimatedValue": true
+  },
+  {
+    "name": "Karen / Jason",
+    "description": "Medical office",
+    "value": "$73,500",
+    "winPct": 90,
+    "estimatedValue": true
+  },
+  {
+    "name": "Lindsey Ascolani",
+    "description": "BBQ",
+    "value": "$100K",
+    "winPct": 60,
+    "estimatedValue": true
+  },
+  {
+    "name": "Todd Kirschen",
+    "description": "Second floor",
+    "value": "$62K",
+    "winPct": 50,
+    "estimatedValue": true
+  },
+  {
+    "name": "Dan & Victoria",
+    "description": "BBQ",
+    "value": "$100K",
+    "winPct": 50,
+    "estimatedValue": true
+  },
+  {
+    "name": "Carlos & Paola",
+    "description": "New carpentry",
+    "value": "$30K",
+    "winPct": 75,
+    "estimatedValue": true
+  },
+  {
+    "name": "Qnity",
+    "description": "Project",
+    "value": "$168K",
+    "winPct": 70,
+    "estimatedValue": true
+  }
 ];
 
 const BIG_WINS=[
-  "Udall: concrete scheduled Nov 4 — not yet confirmed complete.",
+  "Adato: started Nov 5 · PM Diego.",
+  "Becker: permit issued.",
   "Fifth: drain inspection passed.",
   "Silver Oak: laundry relocation completed."
 ];
 
 const RED_FLAGS=[
   {
-    "project": "Becker — confirm status",
-    "issue": "Framing and electrical items dated Oct 31 remain incomplete in JobTread. Confirm current field status; delay is not verified.",
-    "owner": "To confirm",
-    "due": "Oct 31 · confirm status"
+    "project": "JobTread up to date?"
   }
 ];
 
 const WATCHLIST=[
   {
     "project": "Udall",
-    "note": "Follow up on tree and turf installation, and appliances."
+    "note": "Appliances expected Nov 6; coordinate trees and turf for Nov 20 target."
   },
   {
-    "project": "Silver Oak",
-    "note": "Coordination follow-up: confirm inspection sequence, trade brackets and electrical scope."
+    "project": "Becker",
+    "note": "Confirm fire-door rating, revised price and lead time."
   },
   {
-    "project": "920 Coronado",
-    "note": "Clarify existing follow-up vs new scope before classifying."
+    "project": "C117",
+    "note": "Confirm building restrictions and start-date approval."
   }
 ];
 
@@ -424,6 +577,45 @@ const MONTHLY=[
   "Confirm project completion dates and reconcile schedules.",
   "Resolve Udall tree scope, pricing and responsible contractor.",
   "Reschedule warehouse/office inventory with Liat."
+];
+
+const COLD_LEADS=[
+  {
+    "name": "Via Cangrejo",
+    "pm": "Eitan / Victor",
+    "description": "Patio Remodel",
+    "status": "Keep in touch",
+    "value": "$120K",
+    "confidence": "Cold",
+    "winPct": 40
+  },
+  {
+    "name": "Eric Clad",
+    "pm": "Eitan",
+    "description": "New Warehouse",
+    "status": "Keep in touch",
+    "value": "TBD",
+    "confidence": "Cold",
+    "winPct": 20
+  },
+  {
+    "name": "Mustang Ridge",
+    "pm": "Eitan",
+    "description": "Windows + Doors",
+    "status": "Keep in touch",
+    "value": "$70K",
+    "confidence": "Cold",
+    "winPct": 45
+  },
+  {
+    "name": "1102 La Jolla Rancho",
+    "pm": "Eitan",
+    "description": "House Remodel",
+    "status": "Keep in touch",
+    "value": "TBD",
+    "confidence": "Cold",
+    "winPct": 40
+  }
 ];
 
 const VALUES=["Details Matter.","People Matter.","Results Matter."];
@@ -532,12 +724,7 @@ document.getElementById('donut-legend').innerHTML=dd.map(d=>
 ).join('');
 
 // ── RED FLAGS ────────────────────────────────────────────────
-document.getElementById('red-flags').innerHTML=RED_FLAGS.map((f,i)=>
-  `<div class="flag-item" ${i===0?'style="padding-top:0;margin-top:0;border-top:none"':''}>
-    <div class="flag-row"><span class="flag-project">${f.project}</span><span class="flag-due">${f.due}</span></div>
-    <div class="flag-issue">${f.issue}</div><div class="flag-owner">Owner: ${f.owner}</div>
-  </div>`
-).join('');
+document.getElementById('red-flags').innerHTML=RED_FLAGS.map(f=>'<div class="flag-project">'+f.project+'</div>').join('');
 
 // ── BIG WINS ─────────────────────────────────────────────────
 document.getElementById('big-wins').innerHTML=BIG_WINS.map((w,i)=>
@@ -588,6 +775,8 @@ document.getElementById('watchlist').innerHTML=WATCHLIST.map((w,i)=>
   </div>`
 ).join('');
 
+document.getElementById('cold-leads').innerHTML=COLD_LEADS.map(p=>`<div class="cold-item"><div><div class="cold-name">${p.name}</div><div class="cold-scope">${p.description}</div></div><span class="cold-value">${p.value}</span></div>`).join('');
+
 // ── THIS MONTH ───────────────────────────────────────────────
 document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
   `<div class="priority-item" style="border:1px solid rgba(167,139,250,0.15);border-left:3px solid rgba(167,139,250,0.5)">
@@ -598,5 +787,6 @@ document.getElementById('monthly-priorities').innerHTML=MONTHLY.map(item=>
 </script>
 </body>
 </html>
+
 
 
